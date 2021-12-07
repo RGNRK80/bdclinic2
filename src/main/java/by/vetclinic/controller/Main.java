@@ -17,6 +17,9 @@ public class Main {
 
         System.out.println("Connection is " + service.connect(url,user,pass));
 
+        //добавляем пользователя
+        // регистрация в БД
+        //service.addNewCustomer();
 
 
 
