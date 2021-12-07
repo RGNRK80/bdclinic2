@@ -14,9 +14,9 @@ public class DAOwork implements DAOworkServ{
 
     @Override
     public boolean connect(String url, String log, String pass) throws SQLException {
-        String rezult;
+
         Connection connection= DriverManager.getConnection(url,log,pass);
-        return connection.isClosed();
+        return !connection.isClosed();
     }
 
     @Override

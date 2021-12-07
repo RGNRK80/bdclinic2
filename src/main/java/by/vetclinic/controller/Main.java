@@ -1,6 +1,7 @@
 package by.vetclinic.controller;
 
 import by.vetclinic.dao.DAOwork;
+import by.vetclinic.service.Service;
 
 import java.sql.SQLException;
 
@@ -12,10 +13,9 @@ public class Main {
         String url ="jdbc:mysql://localhost:3306/mydbclinic";
         String user="root";
         String pass="dd286082";
+        Service service=new Service();
 
-
-        DAOwork dao = new DAOwork();
-        System.out.println(dao.connect(url,user,pass));
+        System.out.println("Connection is " + service.connect(url,user,pass));
 
 
 
