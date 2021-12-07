@@ -3,22 +3,33 @@ package by.vetclinic.dao;
 import by.vetclinic.entity.Customer;
 import by.vetclinic.entity.Doctor;
 import by.vetclinic.entity.Pet;
+import lombok.Data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DAOwork implements DAOworkServ{
+@Data
+public class DAOwork {
+    private Connection connection;
 
-
-    @Override
-    public boolean connect(String url, String log, String pass) throws SQLException {
-
-        Connection connection= DriverManager.getConnection(url,log,pass);
-        return !connection.isClosed();
+    public DAOwork(String url, String log, String pass) throws SQLException {
+        this.connection = DriverManager.getConnection(url,log,pass);
     }
 
+   /* @Override
+    public void connect(String url, String log, String pass) throws SQLException {
+        System.out.println(url);
+        System.out.println(log);
+        System.out.println(pass);
+        this.connection= DriverManager.getConnection(url,log,pass);
+        System.out.println(!connection.isClosed());
+
+    }  */
+
+/*
     @Override
     public Doctor addNewDoc(Doctor doc) {
         return null;
@@ -53,12 +64,28 @@ public class DAOwork implements DAOworkServ{
     public ArrayList<Doctor> getDocbyPet(Pet pet) {
         return null;
     }
+*/
+   //@Override
+    public Customer addNewCustomer(Customer customer) throws SQLException {
 
-    @Override
-    public Customer addNewCustomer(Customer customer) {
+
+
+        String insert = "INSERT INTO customer VALUES(0,?,?,?,?,?)";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1,customer.getName());
+        preparedStatement.setString(2,customer.getSurname());
+        preparedStatement.setString(3,customer.getTel());
+        preparedStatement.setString(4,customer.getEmail());
+        preparedStatement.setString(5,customer.getPass());
+        preparedStatement.executeUpdate();
+
+
+
+
+
         return null;
     }
-
+/*
     @Override
     public Customer setCustomer(Customer customer) {
         return null;
@@ -108,5 +135,5 @@ public class DAOwork implements DAOworkServ{
     public Pet getPetbyid(int id) {
         return null;
     }
-
+*/
 }

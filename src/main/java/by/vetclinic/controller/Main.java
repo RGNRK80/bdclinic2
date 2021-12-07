@@ -13,16 +13,14 @@ public class Main {
         String url ="jdbc:mysql://localhost:3306/mydbclinic";
         String user="root";
         String pass="dd286082";
-        Service service=new Service();
 
-        System.out.println("Connection is " + service.connect(url,user,pass));
+        Service service=new Service(url,user,pass);
+        service.addNewCustomer("John","Smith","JS@mail.ru","+375001","11111");
 
-        String name="GorgiaГрузия";
-       // name.chars().filter(n->Character.isLetter(n)).forEach(System.out::println);
 
-        //добавляем пользователя
-        // регистрация в БД
-        //service.addNewCustomer();
+
+
+
 
 
 

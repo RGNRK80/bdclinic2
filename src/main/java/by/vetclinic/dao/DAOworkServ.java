@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface DAOworkServ  {
-    boolean connect(String url, String pass, String log) throws SQLException;
+    void connect(String url, String pass, String log) throws SQLException;
 
     Doctor addNewDoc(Doctor doc);
     Doctor setDoc(Doctor doc);
@@ -18,7 +18,7 @@ public interface DAOworkServ  {
     ArrayList<Doctor> getDocSurName (String surname);
     ArrayList<Doctor> getDocbyPet (Pet pet);
 
-    Customer addNewCustomer(Customer customer);//добавление
+    Customer addNewCustomer(Customer customer) throws SQLException;//добавление
     Customer setCustomer(Customer customer);//изменение
 
     ArrayList<Customer> getCustomerByName (String name);
