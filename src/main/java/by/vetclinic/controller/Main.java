@@ -17,6 +17,9 @@ public class Main {
 
         System.out.println("Connection is " + service.connect(url,user,pass));
 
+        String name="GorgiaГрузия";
+       // name.chars().filter(n->Character.isLetter(n)).forEach(System.out::println);
+
         //добавляем пользователя
         // регистрация в БД
         //service.addNewCustomer();

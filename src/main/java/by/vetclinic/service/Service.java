@@ -18,9 +18,17 @@ public class Service {
             customer.setName(name);
             customer.setSurname(surname);
             customer.setEmail(email);
-            customer.setTel(tel);
-            customer.setPass(pass);
+            customer.setTel(email);
+            customer.setPass(email);
             daOwork.addNewCustomer(customer);
+
+
+            Boolean checkName=name.matches("[^a-zA-Zа-яА-я]");
+            Boolean checkSurName=surname.matches("[^a-zA-Zа-яА-я]");
+            Boolean checkEmail=email.matches("\\D");
+            Boolean checktel=tel.matches("\\D");
+          //  Boolean checkPass=email.matches();  //   ^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$
+// https://web.izjum.com/regexp-email-url-phone
 
             // чекнуть правильность всех граф
             // если ок соединяемся с бд и чекаем email и тел по базе
