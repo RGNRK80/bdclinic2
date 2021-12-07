@@ -14,8 +14,8 @@ public class Main {
         String pass="dd286082";
 
 
-        DAOwork dao = new DAOwork();
-        System.out.println(dao.connect(url,user,pass));
+      //  DAOwork dao = new DAOwork();
+      //  System.out.println(dao.connect(url,user,pass));
 
 
 
