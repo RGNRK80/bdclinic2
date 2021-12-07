@@ -13,7 +13,7 @@ public class DAOwork implements DAOworkServ{
 
 
     @Override
-    public boolean connect(String url, String pass, String log) throws SQLException {
+    public boolean connect(String url, String log, String pass) throws SQLException {
         String rezult;
         Connection connection= DriverManager.getConnection(url,log,pass);
         return connection.isClosed();
