@@ -69,16 +69,16 @@ public class DAOwork {
     public Customer addNewCustomer(Customer customer) throws SQLException {
 
 
-
-        String insert = "INSERT INTO customer VALUES(0,?,?,?,?,?)";
+        System.out.println(" схема работает? "+ !connection.isClosed());
+        System.out.println(" схема  "+ connection.getCatalog());
+        String insert = "INSERT INTO customer VALUES(0,?,?,?,?,?,'CUSTOMER','NEW',0,0,0)";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1,customer.getName());
         preparedStatement.setString(2,customer.getSurname());
         preparedStatement.setString(3,customer.getTel());
         preparedStatement.setString(4,customer.getEmail());
         preparedStatement.setString(5,customer.getPass());
-        preparedStatement.executeUpdate();
-
+        preparedStatement.execute();
 
 
 
