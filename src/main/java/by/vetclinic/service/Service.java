@@ -77,7 +77,10 @@ public class Service {
         Customer customer=daOwork.getCustomerById(id);
         return customer;
     }
-
+    public Customer setCustomer(Customer customer) throws SQLException {
+        Customer customer1=daOwork.setCustomer(customer);
+        return customer1;
+    }
 
 
 

@@ -29,21 +29,32 @@ public class DAOwork {
         return doc;
     }
 
- /*   @Override
+//  @Override
     public Doctor setDoc(Doctor doc) throws SQLException {
-        return null;
+        String insert = "UPDATE customer Set name=?, surname=?, tel=?, email_log=?, pass=?, position=? WHERE idDoc=?";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1,doc.getName());
+        preparedStatement.setString(2,doc.getSurname());
+        preparedStatement.setString(3,doc.getTel());
+        preparedStatement.setString(4,doc.getEmail());
+        preparedStatement.setString(5,doc.getPass());
+        preparedStatement.setString(6,doc.getPosition());
+        preparedStatement.setLong(7,doc.getId());
+        System.out.println("set:" + doc.toString());
+        preparedStatement.executeUpdate();
+        return doc;
     }
-
-    @Override
+/*
+    @Override  // не нужно, меняем set ом на уволен
     public Doctor delDoc(Doctor doc) {
         return null;
     }
-
-    @Override
+*/
+  //  @Override
     public Doctor getDocId(int id) {
         return null;
     }
-
+/*
     @Override
     public ArrayList<Doctor> getDocByName(String name) {
         return null;
@@ -61,8 +72,6 @@ public class DAOwork {
 */
    //@Override
     public Customer addNewCustomer(Customer customer) throws SQLException {
-
-
 
         //System.out.println(" схема работает? "+ !connection.isClosed());
        //  System.out.println(" схема  "+ connection.getCatalog());
@@ -82,7 +91,7 @@ public class DAOwork {
 
    // @Override
     public Customer setCustomer(Customer customer) throws SQLException {
-        String insert = "UPDATE customer Set `name`=?, `surname`=?, `tel`=?, `email_log`=?, `pass`=? WERE `id`=?) ";
+        String insert = "UPDATE customer Set name=?, surname=?, tel=?, email_log=?, pass=? WHERE idCustomer=?";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1,customer.getName());
         preparedStatement.setString(2,customer.getSurname());
@@ -90,12 +99,9 @@ public class DAOwork {
         preparedStatement.setString(4,customer.getEmail());
         preparedStatement.setString(5,customer.getPass());
         preparedStatement.setLong(6,customer.getId());
-        preparedStatement.execute();
-
-
+        System.out.println("set:" + customer.toString());
+        preparedStatement.executeUpdate();
         return customer;
-
-
     }
 /*
     @Override
@@ -123,7 +129,6 @@ public class DAOwork {
         ResultSet result = preparedStatement.executeQuery();
 
         while (result.next()) {
-
             customer.setName(result.getString(2));
             customer.setSurname(result.getString(3));
             customer.setTel(result.getString(4));
@@ -135,10 +140,6 @@ public class DAOwork {
             customer.setTotalPayment(result.getDouble(10));
             customer.setDiscount(result.getInt(11));
         }
-
-
-
-
         return customer;
     }
 
