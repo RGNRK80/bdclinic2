@@ -81,8 +81,14 @@ public class Service {
         Customer customer1=daOwork.setCustomer(customer);
         return customer1;
     }
-
-
+    public Doctor getDocById (int id) throws SQLException {
+        Doctor doctor=daOwork.getDocById(id);
+        return doctor;
+    }
+    public Doctor setDoc(Doctor doc) throws SQLException {
+        Doctor doctor=daOwork.setDoc(doc);
+        return doctor;
+    }
 
 
 

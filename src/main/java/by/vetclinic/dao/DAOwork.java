@@ -31,7 +31,7 @@ public class DAOwork {
 
 //  @Override
     public Doctor setDoc(Doctor doc) throws SQLException {
-        String insert = "UPDATE customer Set name=?, surname=?, tel=?, email_log=?, pass=?, position=? WHERE idDoc=?";
+        String insert = "UPDATE doc Set name=?, surname=?, tel=?, email_log=?, pass=?, position=? WHERE idDoc=?";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1,doc.getName());
         preparedStatement.setString(2,doc.getSurname());
@@ -51,8 +51,27 @@ public class DAOwork {
     }
 */
   //  @Override
-    public Doctor getDocId(int id) {
-        return null;
+    public Doctor getDocById(int id) throws SQLException {
+        Doctor doctor=new Doctor();
+        doctor.setId(id);
+        String insert = "SELECT * FROM doc where idDoc=?";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1, String.valueOf(id));
+        ResultSet result = preparedStatement.executeQuery();
+
+        while (result.next()) {
+            doctor.setName(result.getString(2));
+            doctor.setSurname(result.getString(3));
+            doctor.setTel(result.getString(4));
+            doctor.setEmail(result.getString(5));
+            doctor.setPass(result.getString(6));
+            doctor.setRole(Role.valueOf(result.getString(7)));
+            doctor.setStatus(Status.valueOf(result.getString(8)));
+            doctor.setPosition(result.getString(9));
+
+        }
+        return doctor;
+
     }
 /*
     @Override
