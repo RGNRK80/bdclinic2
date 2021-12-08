@@ -114,7 +114,7 @@ public class DAOwork {
     }
 */
     //@Override
-    public Customer getCustomerByid(int id) throws SQLException {
+    public Customer getCustomerById(int id) throws SQLException {
         Customer customer=new Customer();
         customer.setId(id);
         String insert = "SELECT * FROM customer where idCustomer=?";
