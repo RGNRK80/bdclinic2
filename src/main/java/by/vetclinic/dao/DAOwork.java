@@ -121,19 +121,23 @@ public class DAOwork {
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1, String.valueOf(id));
         ResultSet result = preparedStatement.executeQuery();
-        System.out.println(result.getString(2));
 
-/*
-        customer.setName(result.getString(2));
-        customer.setSurname(result.getString(3));
-        customer.setTel(result.getString(4));
-        customer.setEmail(result.getString(5));
-        customer.setPass(result.getString(6));
-        customer.setRole(Role.valueOf(result.getString(8)));
-        customer.setStatus(Status.valueOf(result.getString(9)));
-        customer.setCheckToPay(result.getDouble(10));
-        customer.setTotalPayment(result.getDouble(11));
-        customer.setDiscount(result.getInt(12));  */
+        while (result.next()) {
+
+            customer.setName(result.getString(2));
+            customer.setSurname(result.getString(3));
+            customer.setTel(result.getString(4));
+            customer.setEmail(result.getString(5));
+            customer.setPass(result.getString(6));
+            customer.setRole(Role.valueOf(result.getString(7)));
+            customer.setStatus(Status.valueOf(result.getString(8)));
+            customer.setCheckToPay(result.getDouble(9));
+            customer.setTotalPayment(result.getDouble(10));
+            customer.setDiscount(result.getInt(11));
+        }
+
+
+
 
         return customer;
     }

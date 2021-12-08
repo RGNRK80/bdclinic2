@@ -17,7 +17,7 @@ public class Main {
         Service service=new Service(url,user,pass);
       //   service.addNewCustomer("John4","Smith4","JS4@mail.ru","+3750041","11111");
       //  service.addNewDoc("Aibo1","lite1","AL11@mail.doc","+3750111","11111", "vet_1_cat");
-        System.out.println(service.getCustomerById(1).toString());
+        System.out.println(service.getCustomerById(2).toString());
 
 
 
