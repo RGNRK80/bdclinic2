@@ -28,10 +28,6 @@ public class Service {
 
     }
 
-
-
-
-
     public void addNewCustomer(String name, String surname, String email, String tel, String pass) throws SQLException {
             Customer customer = new Customer();
             customer.setName(name);
@@ -75,6 +71,11 @@ public class Service {
         // если все ок
         // добавляем customer
         daOwork.addNewDoc(doctor);
+    }
+
+    public Customer getCustomerById (int id) throws SQLException {
+        Customer customer=daOwork.getCustomerByid(id);
+        return customer;
     }
 
 

@@ -15,9 +15,9 @@ public class Main {
         String pass="dd286082";
 
         Service service=new Service(url,user,pass);
-        service.addNewCustomer("John3","Smith3","JS3@mail.ru","+375004","11111");
-        service.addNewDoc("Aibo","lite","AL1@mail.doc","+375011","11111", "vet_1_cat");
-
+      //   service.addNewCustomer("John4","Smith4","JS4@mail.ru","+3750041","11111");
+      //  service.addNewDoc("Aibo1","lite1","AL11@mail.doc","+3750111","11111", "vet_1_cat");
+        System.out.println(service.getCustomerById(1).toString());
 
 
 

@@ -1,14 +1,9 @@
 package by.vetclinic.dao;
 
-import by.vetclinic.entity.Customer;
-import by.vetclinic.entity.Doctor;
-import by.vetclinic.entity.Pet;
+import by.vetclinic.entity.*;
 import lombok.Data;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 @Data
@@ -31,7 +26,7 @@ public class DAOwork {
         preparedStatement.setString(5,doc.getPass());
         preparedStatement.setString(6,doc.getPosition());
         preparedStatement.execute();
-        return null;
+        return doc;
     }
 
  /*   @Override
@@ -82,14 +77,27 @@ public class DAOwork {
         preparedStatement.execute();
 
 
-        return null;
-    }
-/*
-    @Override
-    public Customer setCustomer(Customer customer) {
-        return null;
+        return customer;
     }
 
+   // @Override
+    public Customer setCustomer(Customer customer) throws SQLException {
+        String insert = "UPDATE customer Set `name`=?, `surname`=?, `tel`=?, `email_log`=?, `pass`=? WERE `id`=?) ";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1,customer.getName());
+        preparedStatement.setString(2,customer.getSurname());
+        preparedStatement.setString(3,customer.getTel());
+        preparedStatement.setString(4,customer.getEmail());
+        preparedStatement.setString(5,customer.getPass());
+        preparedStatement.setLong(6,customer.getId());
+        preparedStatement.execute();
+
+
+        return customer;
+
+
+    }
+/*
     @Override
     public ArrayList<Customer> getCustomerByName(String name) {
         return null;
@@ -104,11 +112,33 @@ public class DAOwork {
     public ArrayList<Customer> getCustomerByPet(Pet pet) {
         return null;
     }
+*/
+    //@Override
+    public Customer getCustomerByid(int id) throws SQLException {
+        Customer customer=new Customer();
+        customer.setId(id);
+        String insert = "SELECT * FROM customer where idCustomer=?";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1, String.valueOf(id));
+        ResultSet result = preparedStatement.executeQuery();
+        System.out.println(result.getString(2));
 
-    @Override
-    public Customer getCustomerByid(int id) {
-        return null;
-    } */
+/*
+        customer.setName(result.getString(2));
+        customer.setSurname(result.getString(3));
+        customer.setTel(result.getString(4));
+        customer.setEmail(result.getString(5));
+        customer.setPass(result.getString(6));
+        customer.setRole(Role.valueOf(result.getString(8)));
+        customer.setStatus(Status.valueOf(result.getString(9)));
+        customer.setCheckToPay(result.getDouble(10));
+        customer.setTotalPayment(result.getDouble(11));
+        customer.setDiscount(result.getInt(12));  */
+
+        return customer;
+    }
+
+
 
   //  @Override
     public Pet addNewPet(Pet pet) throws SQLException {
