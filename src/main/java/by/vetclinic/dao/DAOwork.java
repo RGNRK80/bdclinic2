@@ -20,8 +20,6 @@ public class DAOwork {
     }
 
 
-
-
    // @Override
     public Doctor addNewDoc(Doctor doc) throws SQLException {
         String insert = "INSERT INTO doc (`name`, `surname`, `tel`, `email_log`, `pass`,`position`) VALUES(?,?,?,?,?,?)";
@@ -37,7 +35,7 @@ public class DAOwork {
     }
 
  /*   @Override
-    public Doctor setDoc(Doctor doc) {
+    public Doctor setDoc(Doctor doc) throws SQLException {
         return null;
     }
 
@@ -110,13 +108,20 @@ public class DAOwork {
     @Override
     public Customer getCustomerByid(int id) {
         return null;
-    }
+    } */
 
-    @Override
-    public Pet addNewPet(Pet pet) {
-        return null;
+  //  @Override
+    public Pet addNewPet(Pet pet) throws SQLException {
+        String insert = "INSERT INTO pet (`name`, `type`, `sex`, `age`, `date_inn`) VALUES(?,?,?,?,?)";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1,pet.getName());
+        preparedStatement.setString(3,pet.getSex());
+        preparedStatement.setInt(4,pet.getAge());
+        preparedStatement.setString(5,pet.getDateInn());
+        preparedStatement.setString(2,pet.getType());
+        return pet;
     }
-
+/*
     @Override
     public Pet setPet(Pet pet) {
         return null;
