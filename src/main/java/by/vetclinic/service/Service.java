@@ -2,6 +2,7 @@ package by.vetclinic.service;
 
 import by.vetclinic.dao.DAOwork;
 import by.vetclinic.entity.Customer;
+import by.vetclinic.entity.Doctor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,7 +40,28 @@ public class Service {
             customer.setTel(tel);
             customer.setPass(pass);
 
+        //  Boolean checkName=name.matches("[^a-zA-Zа-яА-я]");
+        //  Boolean checkSurName=surname.matches("[^a-zA-Zа-яА-я]");
+        //  Boolean checkEmail=email.matches("\\D");
+        //   Boolean checktel=tel.matches("\\D");
+        //  Boolean checkPass=email.matches();  //   ^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$
+        // https://web.izjum.com/regexp-email-url-phone
+        // чекнуть правильность всех граф
+        // если ок соединяемся с бд и чекаем email и тел по базе
+        // запрос в бд на наличие email и телефона
+        // если все ок
+        // добавляем customer
+        daOwork.addNewCustomer(customer);
+    }
 
+    public void addNewDoc (String name, String surname, String email, String tel, String pass, String position) throws SQLException {
+        Doctor doctor = new Doctor();
+        doctor.setName(name);
+        doctor.setSurname(surname);
+        doctor.setEmail(email);
+        doctor.setTel(tel);
+        doctor.setPass(pass);
+        doctor.setPosition(position);
 
         //  Boolean checkName=name.matches("[^a-zA-Zа-яА-я]");
         //  Boolean checkSurName=surname.matches("[^a-zA-Zа-яА-я]");
@@ -47,27 +69,19 @@ public class Service {
         //   Boolean checktel=tel.matches("\\D");
         //  Boolean checkPass=email.matches();  //   ^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$
         // https://web.izjum.com/regexp-email-url-phone
-
         // чекнуть правильность всех граф
         // если ок соединяемся с бд и чекаем email и тел по базе
-
-
         // запрос в бд на наличие email и телефона
-
         // если все ок
         // добавляем customer
-        System.out.println(customer.toString());
-
-        daOwork.addNewCustomer(customer);
-
-
-
-
-
-
-
-
+        daOwork.addNewDoc(doctor);
     }
+
+
+
+
+
+
 
 
 }

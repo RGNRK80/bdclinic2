@@ -1,5 +1,8 @@
 package by.vetclinic.entity;
 
+import lombok.Data;
+
+@Data
 public class Doctor {
     private long id;
     private String name;

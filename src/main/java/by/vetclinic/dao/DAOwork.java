@@ -19,23 +19,24 @@ public class DAOwork {
         this.connection = DriverManager.getConnection(url,log,pass);
     }
 
-   /* @Override
-    public void connect(String url, String log, String pass) throws SQLException {
-        System.out.println(url);
-        System.out.println(log);
-        System.out.println(pass);
-        this.connection= DriverManager.getConnection(url,log,pass);
-        System.out.println(!connection.isClosed());
 
-    }  */
 
-/*
-    @Override
-    public Doctor addNewDoc(Doctor doc) {
+
+   // @Override
+    public Doctor addNewDoc(Doctor doc) throws SQLException {
+        String insert = "INSERT INTO doc (`name`, `surname`, `tel`, `email_log`, `pass`,`position`) VALUES(?,?,?,?,?,?)";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1,doc.getName());
+        preparedStatement.setString(2,doc.getSurname());
+        preparedStatement.setString(3,doc.getTel());
+        preparedStatement.setString(4,doc.getEmail());
+        preparedStatement.setString(5,doc.getPass());
+        preparedStatement.setString(6,doc.getPosition());
+        preparedStatement.execute();
         return null;
     }
 
-    @Override
+ /*   @Override
     public Doctor setDoc(Doctor doc) {
         return null;
     }
@@ -69,9 +70,11 @@ public class DAOwork {
     public Customer addNewCustomer(Customer customer) throws SQLException {
 
 
-        System.out.println(" схема работает? "+ !connection.isClosed());
-        System.out.println(" схема  "+ connection.getCatalog());
-        String insert = "INSERT INTO customer VALUES(0,?,?,?,?,?,'CUSTOMER','NEW',0,0,0)";
+
+        //System.out.println(" схема работает? "+ !connection.isClosed());
+       //  System.out.println(" схема  "+ connection.getCatalog());
+
+        String insert = "INSERT INTO customer (`name`, `surname`, `tel`, `email_log`, `pass`) VALUES(?,?,?,?,?)";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1,customer.getName());
         preparedStatement.setString(2,customer.getSurname());
@@ -79,8 +82,6 @@ public class DAOwork {
         preparedStatement.setString(4,customer.getEmail());
         preparedStatement.setString(5,customer.getPass());
         preparedStatement.execute();
-
-
 
 
         return null;
