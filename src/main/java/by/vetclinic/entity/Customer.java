@@ -17,6 +17,7 @@ public class Customer {
     private double totalPayment;
     private int discount;
 
+
     public Customer() {
 
     }
