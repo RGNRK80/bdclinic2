@@ -4,6 +4,8 @@ import by.vetclinic.dao.DAOwork;
 import by.vetclinic.entity.Customer;
 import by.vetclinic.entity.Doctor;
 import by.vetclinic.entity.Pet;
+import by.vetclinic.entity.Role;
+import by.vetclinic.service.EnterService;
 import by.vetclinic.service.Service;
 
 import java.sql.SQLException;
@@ -37,7 +39,21 @@ public class Main {
         pet.setDateInn("2021-10-01");
         System.out.println(service.addNewPet(pet));*/
 
+        // 1. выбрать - ввести логин/пароль или добавить пользователя.
+        // если добавить пользователя - сервис- добавить пользователя
+        // есл логин пароль  - ввести логин и пароль - запустить сервис входа.
 
+
+
+
+        String login="";
+        String password="";
+
+        EnterService enterService=new EnterService(url,user,pass);
+        if (enterService.getRole(login,password)== Role.ADMIN) {
+
+
+        }
 
 
 
