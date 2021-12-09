@@ -1,6 +1,7 @@
 package by.vetclinic.service;
 
 import by.vetclinic.dao.DAOwork;
+import by.vetclinic.entity.Customer;
 import by.vetclinic.entity.Role;
 import lombok.Data;
 
@@ -23,10 +24,25 @@ public class EnterService {
         System.out.println("s " +this.url);
         System.out.println("s "+this.log);
         System.out.println("s "+this.pass);
-        // daOwork.connect(url, log, pass);
-        // daOwork.setConnection(connection);
-
     }
+
+    // возвращает null если пользователь существует или customer если  логин свободен;
+    public Customer addNewCustomer(String name, String surname, String email, String tel, String pass) throws SQLException {
+        Customer check = daOwork.getCustomerByMail(email);
+        if (check==null) {
+        Customer customer = new Customer();
+        customer.setName(name);
+        customer.setSurname(surname);
+        customer.setEmail(email);
+        customer.setTel(tel);
+        customer.setPass(pass);
+        customer=daOwork.addNewCustomer(customer);
+        return customer; }
+        else return null;
+    }
+
+
+
 
     public Role getRole (String login, String pass) {
         Role role = null;

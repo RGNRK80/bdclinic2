@@ -210,7 +210,7 @@ public class DAOwork {
     }
 */
     //@Override
-    public Customer getCustomerById(int id) throws SQLException {
+    public Customer getCustomerById(long id) throws SQLException {
         Customer customer=new Customer();
         customer.setId(id);
         String insert = "SELECT * FROM customer where idCustomer=?";
@@ -233,7 +233,28 @@ public class DAOwork {
         return customer;
     }
 
+    public Customer getCustomerByMail(String emale) throws SQLException {
+        Customer customer=new Customer();
+        String insert = "SELECT * FROM customer where email_log=?";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1, emale);
+        ResultSet result = preparedStatement.executeQuery();
 
+        while (result.next()) {
+            customer.setId(result.getLong(1));
+            customer.setName(result.getString(2));
+            customer.setSurname(result.getString(3));
+            customer.setTel(result.getString(4));
+            customer.setEmail(result.getString(5));
+            customer.setPass(result.getString(6));
+            customer.setRole(Role.valueOf(result.getString(7)));
+            customer.setStatus(Status.valueOf(result.getString(8)));
+            customer.setCheckToPay(result.getDouble(9));
+            customer.setTotalPayment(result.getDouble(10));
+            customer.setDiscount(result.getInt(11));
+        }
+        return customer;
+    }
 
   //  @Override
     public Pet addNewPet(Pet pet) throws SQLException {
