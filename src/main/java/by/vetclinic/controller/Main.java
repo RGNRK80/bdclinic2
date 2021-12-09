@@ -23,10 +23,11 @@ public class Main {
         //cus1.setSurname("Week");
 
        // service.setCustomer(cus1);
-     Doctor doc1 =  service.getDocById(5);
-     doc1.setPosition("mainsister");
-     service.setDoc(doc1);
-        System.out.println(service.getDocById(5));
+    // Doctor doc1 =  service.getDocById(5);
+    // doc1.setPosition("mainsister");
+    // service.setDoc(doc1);
+     System.out.println(service.getDocById(5));
+        System.out.println(service.getDocByName("Aibo2"));
 
 
 

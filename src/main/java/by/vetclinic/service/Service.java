@@ -7,6 +7,7 @@ import by.vetclinic.entity.Doctor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Service {
     String url;
@@ -89,7 +90,11 @@ public class Service {
         Doctor doctor=daOwork.setDoc(doc);
         return doctor;
     }
-
+    public ArrayList<Doctor> getDocByName(String name) throws SQLException{
+        ArrayList<Doctor> docList = new ArrayList<>();
+        docList=daOwork.getDocByName(name);
+        return  docList;
+    }
 
 
 

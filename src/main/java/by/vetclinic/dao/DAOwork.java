@@ -73,22 +73,63 @@ public class DAOwork {
         return doctor;
 
     }
-/*
-    @Override
-    public ArrayList<Doctor> getDocByName(String name) {
-        return null;
+
+   // @Override
+    public ArrayList<Doctor> getDocByName(String name) throws SQLException{
+        ArrayList<Doctor> docList = new ArrayList<>();
+        Doctor doctor=new Doctor();
+        String insert = "SELECT * FROM doc where name=?";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1, name);
+        ResultSet result = preparedStatement.executeQuery();
+
+        while (result.next()) {
+            doctor.setId(result.getLong(1));
+            doctor.setName(result.getString(2));
+            doctor.setSurname(result.getString(3));
+            doctor.setTel(result.getString(4));
+            doctor.setEmail(result.getString(5));
+            doctor.setPass(result.getString(6));
+            doctor.setRole(Role.valueOf(result.getString(7)));
+            doctor.setStatus(Status.valueOf(result.getString(8)));
+            doctor.setPosition(result.getString(9));
+            docList.add(doctor);
+        }
+
+        return docList;
     }
 
-    @Override
-    public ArrayList<Doctor> getDocSurName(String surname) {
-        return null;
+  // @Override
+    public ArrayList<Doctor> getDocBySurName(String surname) throws SQLException {
+      ArrayList<Doctor> docList = new ArrayList<>();
+        Doctor doctor=new Doctor();
+        String insert = "SELECT * FROM doc where surname=?";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1, surname);
+        ResultSet result = preparedStatement.executeQuery();
+
+        while (result.next()) {
+            doctor.setId(result.getLong(1));
+            doctor.setName(result.getString(2));
+            doctor.setSurname(result.getString(3));
+            doctor.setTel(result.getString(4));
+            doctor.setEmail(result.getString(5));
+            doctor.setPass(result.getString(6));
+            doctor.setRole(Role.valueOf(result.getString(7)));
+            doctor.setStatus(Status.valueOf(result.getString(8)));
+            doctor.setPosition(result.getString(9));
+            docList.add(doctor);
+        }
+
+        return docList;
     }
 
-    @Override
-    public ArrayList<Doctor> getDocbyPet(Pet pet) {
-        return null;
-    }
-*/
+    /*
+       @Override
+       public ArrayList<Doctor> getDocbyPet(Pet pet) {
+           return null;
+       }
+   */
    //@Override
     public Customer addNewCustomer(Customer customer) throws SQLException {
 
