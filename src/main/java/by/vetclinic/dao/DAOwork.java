@@ -242,24 +242,41 @@ public class DAOwork {
 
         return pet2;
     }
-/*
-    @Override
-    public Pet setPet(Pet pet) {
-        return null;
-    }
 
-    @Override
-    public ArrayList<Pet> getPetbyName(String name) {
-        return null;
-    }
+  //  @Override
+    public Pet setPet(Pet pet) throws SQLException {
 
-    @Override
-    public ArrayList<Pet> getPetbyType(String type) {
-        return null;
+        String insert = "UPDATE pet Set name=?, type=?, sex=?, age=?, date_inn=?,condition=?,history=?, drugs=?, total_history=? WHERE idPet=?";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1,pet.getName());
+        preparedStatement.setString(2,pet.getType());
+        preparedStatement.setString(3,pet.getSex());
+        preparedStatement.setInt(4,pet.getAge());
+        preparedStatement.setString(5,pet.getDateInn());
+        preparedStatement.setString(6,pet.getCondition());
+        preparedStatement.setString(7,pet.getHistory());
+        preparedStatement.setString(8,pet.getDrugs());
+        preparedStatement.setString(9,pet.getTotalHistory());
+        preparedStatement.setLong(10,pet.getId());
+        preparedStatement.executeUpdate();
+
+        Pet rezultPet=getPetbyid(pet.getId());
+
+        return rezultPet;
     }
-*/
+    /*
+        @Override
+        public ArrayList<Pet> getPetbyName(String name) {
+            return null;
+        }
+
+        @Override
+        public ArrayList<Pet> getPetbyType(String type) {
+            return null;
+        }
+    */
 //    @Override
-    public Pet getPetbyid(int id) throws SQLException {
+    public Pet getPetbyid(long id) throws SQLException {
         Pet pet=new Pet();
         String insert = "SELECT * FROM pet where idPet=?";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
