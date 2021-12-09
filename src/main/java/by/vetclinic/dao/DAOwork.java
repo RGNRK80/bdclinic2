@@ -84,6 +84,44 @@ public class DAOwork {
 
     }
 
+
+
+
+
+    public Doctor getDocByEmail(String email) throws SQLException {
+        Doctor doctor=new Doctor();
+
+        String insert = "SELECT * FROM doc where email_log=?";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1, email);
+        ResultSet result = preparedStatement.executeQuery();
+
+        while (result.next()) {
+            doctor.setId(result.getLong(1));
+            doctor.setName(result.getString(2));
+            doctor.setSurname(result.getString(3));
+            doctor.setTel(result.getString(4));
+            doctor.setEmail(result.getString(5));
+            doctor.setPass(result.getString(6));
+            doctor.setRole(Role.valueOf(result.getString(7)));
+            doctor.setStatus(Status.valueOf(result.getString(8)));
+            doctor.setPosition(result.getString(9));
+
+
+        }
+        return doctor;
+
+    }
+
+
+
+
+
+
+
+
+
+
    // @Override
     public ArrayList<Doctor> getDocByName(String name) throws SQLException{
         ArrayList<Doctor> docList = new ArrayList<>();
@@ -255,6 +293,13 @@ public class DAOwork {
         }
         return customer;
     }
+
+
+
+
+
+
+
 
   //  @Override
     public Pet addNewPet(Pet pet) throws SQLException {

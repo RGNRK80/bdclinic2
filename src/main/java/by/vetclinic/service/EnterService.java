@@ -2,6 +2,7 @@ package by.vetclinic.service;
 
 import by.vetclinic.dao.DAOwork;
 import by.vetclinic.entity.Customer;
+import by.vetclinic.entity.Doctor;
 import by.vetclinic.entity.Role;
 import lombok.Data;
 
@@ -43,9 +44,20 @@ public class EnterService {
 
 
 
-
-    public Role getRole (String login, String pass) {
+    public Role getRole (String login, String pass) throws SQLException {
         Role role = null;
+        // чекнуть логин/пароль в customer
+        // чекнуть логин/пароль в doc
+        Doctor doc = daOwork.getDocByEmail(login);
+        if (doc.getRole()!=null) {role=doc.getRole();}
+        Customer customer = daOwork.getCustomerByMail(login);
+        if (customer.getRole()!=null) {role=customer.getRole();}
+
+
+
+
+
+
         return role;
     }
 

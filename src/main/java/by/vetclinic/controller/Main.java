@@ -5,6 +5,8 @@ import by.vetclinic.entity.Customer;
 import by.vetclinic.entity.Doctor;
 import by.vetclinic.entity.Pet;
 import by.vetclinic.entity.Role;
+import by.vetclinic.service.CustomerService;
+import by.vetclinic.service.DoctorService;
 import by.vetclinic.service.EnterService;
 import by.vetclinic.service.Service;
 
@@ -60,16 +62,25 @@ public class Main {
         String password="";
 
         EnterService enterService=new EnterService(url,user,pass);
+        enterService.addNewCustomer("Sam","Champlu","SC6@mail.com","+37500561","11111");
 
 
 
         if (enterService.getRole(login,password)== Role.ADMIN) {
+        Service service=new Service(url,user,pass);
 
         }
+        if (enterService.getRole(login,password)== Role.DOCTOR){
+               //DoctorService service =new DoctorService(url,user,pass);
+        }
+        if (enterService.getRole(login,password)== Role.CUSTOMER) {
+              // CustomerService service= new CustomerService(url,user,pass);
+        }
 
+        // по итогу у нас service с функициями заданной роли.
 
-
-
+       //добавить в таблицу таки админа
+       // email должен быть уникальным для всех таблиц
 
 
 
