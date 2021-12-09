@@ -26,10 +26,10 @@ public class Main {
         //cus1.setSurname("Week");
 
        // service.setCustomer(cus1);
-    // Doctor doc1 =  service.getDocById(5);
-    // doc1.setPosition("mainsister");
-    // service.setDoc(doc1);
-     //System.out.println(service.getDocById(5));
+      // Doctor doc1 =  service.getDocById(5);
+      // doc1.setPosition("mainsister");
+      // service.setDoc(doc1);
+      //System.out.println(service.getDocById(5));
        // System.out.println(service.getDocByName("Aibo2"));
        /* Pet pet=new Pet();
         pet.setName("Bro");
@@ -41,7 +41,11 @@ public class Main {
 
         // 1. выбрать - ввести логин/пароль или добавить пользователя.
         // если добавить пользователя - сервис- добавить пользователя
-        // есл логин пароль  - ввести логин и пароль - запустить сервис входа.
+        // если логин пароль  - запустить сервис входа - ввести логин и пароль -
+
+        // сервис входа выдаст роль
+        //в зависимости от роли создаем service доктора или заказчика
+
 
 
 
@@ -51,7 +55,6 @@ public class Main {
 
         EnterService enterService=new EnterService(url,user,pass);
         if (enterService.getRole(login,password)== Role.ADMIN) {
-
 
         }
 
