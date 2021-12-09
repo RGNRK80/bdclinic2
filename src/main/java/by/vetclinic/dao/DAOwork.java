@@ -14,7 +14,6 @@ public class DAOwork {
         this.connection = DriverManager.getConnection(url,log,pass);
     }
 
-
    // @Override
     public Doctor addNewDoc(Doctor doc) throws SQLException {
         String insert = "INSERT INTO doc (`name`, `surname`, `tel`, `email_log`, `pass`,`position`) VALUES(?,?,?,?,?,?)";
@@ -26,7 +25,18 @@ public class DAOwork {
         preparedStatement.setString(5,doc.getPass());
         preparedStatement.setString(6,doc.getPosition());
         preparedStatement.execute();
-        return doc;
+
+        Doctor doc2=new Doctor();
+        String insert1 = "SELECT * FROM doc where tel=? ";
+        PreparedStatement preparedStatement1=connection.prepareStatement(insert1);
+        preparedStatement1.setString(1,doc.getTel());
+        ResultSet result = preparedStatement1.executeQuery();
+
+        while (result.next()) {
+            doc2.setId(result.getLong(1));
+        }
+        doc2= getDocById(doc2.getId());
+        return doc2;
     }
 
 //  @Override
@@ -51,7 +61,7 @@ public class DAOwork {
     }
 */
   //  @Override
-    public Doctor getDocById(int id) throws SQLException {
+    public Doctor getDocById(long id) throws SQLException {
         Doctor doctor=new Doctor();
         doctor.setId(id);
         String insert = "SELECT * FROM doc where idDoc=?";
@@ -124,6 +134,26 @@ public class DAOwork {
         return docList;
     }
 
+
+
+
+
+
+    public void setDocToPet(Doctor doc, Pet pet) throws SQLException {
+        String insert = "INSERT INTO doc_has_pet (`doc_idDoc`,`pet_idPet`) VALUES('?','?')";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1, String.valueOf(doc.getId()));
+        preparedStatement.setString(2, String.valueOf(pet.getId()));
+        preparedStatement.execute();
+    }
+
+    public void setCustomerToPet(Customer customer, Pet pet) throws SQLException {
+        String insert = "INSERT INTO Pet_has_customer (`pet_idPet`,`customer_info_idCustomer`) VALUES('?','?')";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(2, String.valueOf(customer.getId()));
+        preparedStatement.setString(1, String.valueOf(pet.getId()));
+        preparedStatement.execute();
+    }
     /*
        @Override
        public ArrayList<Doctor> getDocbyPet(Pet pet) {

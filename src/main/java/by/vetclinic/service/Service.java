@@ -52,7 +52,7 @@ public class Service {
         daOwork.addNewCustomer(customer);
     }
 
-    public void addNewDoc (String name, String surname, String email, String tel, String pass, String position) throws SQLException {
+    public Doctor addNewDoc (String name, String surname, String email, String tel, String pass, String position) throws SQLException {
         Doctor doctor = new Doctor();
         doctor.setName(name);
         doctor.setSurname(surname);
@@ -72,7 +72,8 @@ public class Service {
         // запрос в бд на наличие email и телефона
         // если все ок
         // добавляем customer
-        daOwork.addNewDoc(doctor);
+        doctor = daOwork.addNewDoc(doctor);
+        return doctor;
     }
 
     public Customer getCustomerById (int id) throws SQLException {
