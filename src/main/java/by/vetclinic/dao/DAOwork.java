@@ -214,7 +214,33 @@ public class DAOwork {
         preparedStatement.setInt(4,pet.getAge());
         preparedStatement.setString(5,pet.getDateInn());
         preparedStatement.setString(2,pet.getType());
-        return pet;
+        preparedStatement.execute();
+
+        Pet pet2 = new Pet();
+        String insert1 = "SELECT * FROM pet where name=? and type=? and sex=? and age=? and date_inn=? ";
+        PreparedStatement preparedStatement1=connection.prepareStatement(insert1);
+        preparedStatement1.setString(1,pet.getName());
+        preparedStatement1.setString(2,pet.getType());
+        preparedStatement1.setString(3,pet.getSex());
+        preparedStatement1.setInt(4,pet.getAge());
+        preparedStatement1.setString(5,pet.getDateInn());
+        ResultSet result = preparedStatement1.executeQuery();
+
+        while (result.next()) {
+            pet2.setId(result.getLong(1));
+            pet2.setName(result.getString(2));
+            pet2.setType(result.getString(3));
+            pet2.setSex(result.getString(4));
+            pet2.setAge(result.getInt(5));
+            pet2.setDateInn(result.getString(6));
+            pet2.setCondition(result.getString(7));
+            pet2.setHistory(result.getString(8));
+            pet2.setDrugs(result.getString(9));
+            pet2.setTotalHistory(result.getString(10));
+
+        }
+
+        return pet2;
     }
 /*
     @Override
@@ -231,10 +257,29 @@ public class DAOwork {
     public ArrayList<Pet> getPetbyType(String type) {
         return null;
     }
-
-    @Override
-    public Pet getPetbyid(int id) {
-        return null;
-    }
 */
+//    @Override
+    public Pet getPetbyid(int id) throws SQLException {
+        Pet pet=new Pet();
+        String insert = "SELECT * FROM pet where idPet=?";
+        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        preparedStatement.setString(1, String.valueOf(id));
+        ResultSet result = preparedStatement.executeQuery();
+
+        while (result.next()) {
+            pet.setId(result.getLong(1));
+            pet.setName(result.getString(2));
+            pet.setType(result.getString(3));
+            pet.setSex(result.getString(4));
+            pet.setAge(result.getInt(5));
+            pet.setDateInn(result.getString(6));
+            pet.setCondition(result.getString(7));
+            pet.setHistory(result.getString(8));
+            pet.setDrugs(result.getString(9));
+            pet.setTotalHistory(result.getString(10));
+
+        }
+        return pet;
+    }
+
 }

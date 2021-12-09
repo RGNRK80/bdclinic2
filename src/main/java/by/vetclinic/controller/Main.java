@@ -3,6 +3,7 @@ package by.vetclinic.controller;
 import by.vetclinic.dao.DAOwork;
 import by.vetclinic.entity.Customer;
 import by.vetclinic.entity.Doctor;
+import by.vetclinic.entity.Pet;
 import by.vetclinic.service.Service;
 
 import java.sql.SQLException;
@@ -26,8 +27,15 @@ public class Main {
     // Doctor doc1 =  service.getDocById(5);
     // doc1.setPosition("mainsister");
     // service.setDoc(doc1);
-     System.out.println(service.getDocById(5));
-        System.out.println(service.getDocByName("Aibo2"));
+     //System.out.println(service.getDocById(5));
+       // System.out.println(service.getDocByName("Aibo2"));
+        Pet pet=new Pet();
+        pet.setName("Bro");
+        pet.setType("Parrot");
+        pet.setAge(2);
+        pet.setSex("m");
+        pet.setDateInn("2021-10-01");
+        System.out.println(service.addNewPet(pet));
 
 
 

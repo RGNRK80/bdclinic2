@@ -3,6 +3,7 @@ package by.vetclinic.service;
 import by.vetclinic.dao.DAOwork;
 import by.vetclinic.entity.Customer;
 import by.vetclinic.entity.Doctor;
+import by.vetclinic.entity.Pet;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -95,8 +96,15 @@ public class Service {
         docList=daOwork.getDocByName(name);
         return  docList;
     }
-
-
+    public ArrayList<Doctor> getDocBySurName(String surname) throws SQLException{
+        ArrayList<Doctor> docList = new ArrayList<>();
+        docList=daOwork.getDocByName(surname);
+        return  docList;
+    }
+    public Pet addNewPet(Pet pet) throws SQLException {
+       Pet pet2= daOwork.addNewPet(pet);
+        return pet2;
+    }
 
 
 }
