@@ -9,13 +9,23 @@ import java.util.ArrayList;
 @Data
 public class DAOwork {
     private Connection connection;
+    private String url;
+    private String log;
+    private String pass;
 
     public DAOwork(String url, String log, String pass) throws SQLException {
-        this.connection = DriverManager.getConnection(url,log,pass);
+        this.url=url;
+        this.log=log;
+        this.pass=pass;
+        //connection = DriverManager.getConnection(url,log,pass);
+
+
     }
 
    // @Override
     public Doctor addNewDoc(Doctor doc) throws SQLException {
+       connection = DriverManager.getConnection(url,log,pass);
+
         String insert = "INSERT INTO doc (`name`, `surname`, `tel`, `email_log`, `pass`,`position`) VALUES(?,?,?,?,?,?)";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1,doc.getName());
@@ -36,11 +46,14 @@ public class DAOwork {
             doc2.setId(result.getLong(1));
         }
         doc2= getDocById(doc2.getId());
+
+        connection.close();
         return doc2;
     }
 
 //  @Override
     public Doctor setDoc(Doctor doc) throws SQLException {
+        connection = DriverManager.getConnection(url,log,pass);
         String insert = "UPDATE doc Set name=?, surname=?, tel=?, email_log=?, pass=?, position=? WHERE idDoc=?";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1,doc.getName());
@@ -52,6 +65,7 @@ public class DAOwork {
         preparedStatement.setLong(7,doc.getId());
         System.out.println("set:" + doc.toString());
         preparedStatement.executeUpdate();
+        connection.close();
         return doc;
     }
 /*
@@ -62,6 +76,7 @@ public class DAOwork {
 */
   //  @Override
     public Doctor getDocById(long id) throws SQLException {
+        connection = DriverManager.getConnection(url,log,pass);
         Doctor doctor=new Doctor();
         doctor.setId(id);
         String insert = "SELECT * FROM doc where idDoc=?";
@@ -80,6 +95,7 @@ public class DAOwork {
             doctor.setPosition(result.getString(9));
 
         }
+        connection.close();
         return doctor;
 
     }
@@ -89,6 +105,7 @@ public class DAOwork {
 
 
     public Doctor getDocByEmail(String email) throws SQLException {
+        connection = DriverManager.getConnection(url,log,pass);
         Doctor doctor=new Doctor();
 
         String insert = "SELECT * FROM doc where email_log=?";
@@ -109,6 +126,7 @@ public class DAOwork {
 
 
         }
+        connection.close();
         return doctor;
 
     }
@@ -124,6 +142,7 @@ public class DAOwork {
 
    // @Override
     public ArrayList<Doctor> getDocByName(String name) throws SQLException{
+        connection = DriverManager.getConnection(url,log,pass);
         ArrayList<Doctor> docList = new ArrayList<>();
         Doctor doctor=new Doctor();
         String insert = "SELECT * FROM doc where name=?";
@@ -143,12 +162,13 @@ public class DAOwork {
             doctor.setPosition(result.getString(9));
             docList.add(doctor);
         }
-
+        connection.close();
         return docList;
     }
 
   // @Override
     public ArrayList<Doctor> getDocBySurName(String surname) throws SQLException {
+        connection = DriverManager.getConnection(url,log,pass);
       ArrayList<Doctor> docList = new ArrayList<>();
         Doctor doctor=new Doctor();
         String insert = "SELECT * FROM doc where surname=?";
@@ -168,7 +188,7 @@ public class DAOwork {
             doctor.setPosition(result.getString(9));
             docList.add(doctor);
         }
-
+        connection.close();
         return docList;
     }
 
@@ -178,19 +198,23 @@ public class DAOwork {
 
 
     public void setDocToPet(Doctor doc, Pet pet) throws SQLException {
+        connection = DriverManager.getConnection(url,log,pass);
         String insert = "INSERT INTO doc_has_pet (`doc_idDoc`,`pet_idPet`) VALUES('?','?')";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1, String.valueOf(doc.getId()));
         preparedStatement.setString(2, String.valueOf(pet.getId()));
         preparedStatement.execute();
+        connection.close();
     }
 
     public void setCustomerToPet(Customer customer, Pet pet) throws SQLException {
+        connection = DriverManager.getConnection(url,log,pass);
         String insert = "INSERT INTO Pet_has_customer (`pet_idPet`,`customer_info_idCustomer`) VALUES('?','?')";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(2, String.valueOf(customer.getId()));
         preparedStatement.setString(1, String.valueOf(pet.getId()));
         preparedStatement.execute();
+        connection.close();
     }
     /*
        @Override
@@ -213,7 +237,7 @@ public class DAOwork {
         preparedStatement.setString(5,customer.getPass());
         preparedStatement.execute();
 
-
+        connection.close();
         return customer;
     }
 
@@ -229,6 +253,7 @@ public class DAOwork {
         preparedStatement.setLong(6,customer.getId());
         System.out.println("set:" + customer.toString());
         preparedStatement.executeUpdate();
+        connection.close();
         return customer;
     }
 /*
@@ -268,6 +293,7 @@ public class DAOwork {
             customer.setTotalPayment(result.getDouble(10));
             customer.setDiscount(result.getInt(11));
         }
+        connection.close();
         return customer;
     }
 
@@ -291,6 +317,7 @@ public class DAOwork {
             customer.setTotalPayment(result.getDouble(10));
             customer.setDiscount(result.getInt(11));
         }
+        connection.close();
         return customer;
     }
 
@@ -335,7 +362,7 @@ public class DAOwork {
             pet2.setTotalHistory(result.getString(10));
 
         }
-
+        connection.close();
         return pet2;
     }
 
@@ -357,7 +384,7 @@ public class DAOwork {
         preparedStatement.executeUpdate();
 
         Pet rezultPet=getPetbyid(pet.getId());
-
+        connection.close();
         return rezultPet;
     }
     /*
@@ -392,6 +419,7 @@ public class DAOwork {
             pet.setTotalHistory(result.getString(10));
 
         }
+        connection.close();
         return pet;
     }
 

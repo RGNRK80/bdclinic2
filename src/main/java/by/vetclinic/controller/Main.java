@@ -20,7 +20,7 @@ public class Main {
         String url ="jdbc:mysql://localhost:3306/mydbclinic";
         String user="root";
         String pass="dd286082";
-       // Service service=new Service(url,user,pass);
+        Service service=new Service(url,user,pass);
 
         //service.addNewCustomer("John6","Smith6","JS6@mail.ru","+3750056","11111");
         //service.addNewDoc("Aibo4","lite4","AL4@mail.doc","+37501114","111114", "vet_1_cat");
@@ -32,7 +32,7 @@ public class Main {
       // doc1.setPosition("mainsister");
       // service.setDoc(doc1);
       //System.out.println(service.getDocById(5));
-       // System.out.println(service.getDocByName("Aibo2"));
+        System.out.println("проверка сервиса: " + service.getDocByName("Aibo2"));
        /* Pet pet=new Pet();
         pet.setName("Bro");
         pet.setType("Parrot");
@@ -41,23 +41,16 @@ public class Main {
         pet.setDateInn("2021-10-01");
         System.out.println(service.addNewPet(pet));*/
 
-        // 1. выбрать - ввести логин/пароль или добавить пользователя.
-        // если добавить пользователя - сервис- добавить пользователя
-        // если логин пароль  - запустить сервис входа - ввести логин и пароль -
+      /*   1. выбрать - ввести логин/пароль или добавить пользователя.
+         если добавить пользователя - сервис- добавить пользователя
+         если логин пароль  - запустить сервис входа - ввести логин и пароль -
 
-        // сервис входа выдаст роль
-        //в зависимости от роли создаем service доктора или заказчика
+         сервис входа выдаст роль
+        в зависимости от роли создаем service доктора или заказчика
 
-        // ДОБАВИТЬ ПОЛЬЗОВАТЕЛЯ
+         Добавить Пользователя  */
 
-
-
-
-
-
-
-
-
+/*
         String login="";
         String password="";
 
@@ -81,7 +74,7 @@ public class Main {
 
        //добавить в таблицу таки админа
        // email должен быть уникальным для всех таблиц
-
+*/
 
 
 
