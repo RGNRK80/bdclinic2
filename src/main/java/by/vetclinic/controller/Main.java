@@ -55,23 +55,25 @@ public class Main {
          Добавить Пользователя  */
 
 
-        String login="";
-        String password="";
+
 
         EnterService enterService=new EnterService(url,user,pass);
         enterService.addNewCustomer("Sam","Champlu","SC6@mail.com","+37500561","11111");
 
-
+        String login="SC6@mail.com";
+        String password="11111";
 
         if (enterService.getRole(login,password)== Role.ADMIN) {
         Service service=new Service(url,user,pass);
 
         }
+
         if (enterService.getRole(login,password)== Role.DOCTOR){
-               //DoctorService service =new DoctorService(url,user,pass);
+               DoctorService service =new DoctorService(url,user,pass);
         }
+
         if (enterService.getRole(login,password)== Role.CUSTOMER) {
-              // CustomerService service= new CustomerService(url,user,pass);
+              CustomerService service= new CustomerService(url,user,pass);
         }
 
 

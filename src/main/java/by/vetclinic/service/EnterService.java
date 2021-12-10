@@ -22,17 +22,13 @@ public class EnterService {
         this.log=log;
         this.pass=pass;
         daOwork=new DAOwork(url, log, pass);
-        System.out.println("s " +this.url);
-        System.out.println("s "+this.log);
-        System.out.println("s "+this.pass);
+
     }
 
     // возвращает null если пользователь или доктор по этой почте существует или  возвращает customer если  логин свободен;
     public Customer addNewCustomer(String name, String surname, String email, String tel, String pass) throws SQLException {
         Customer check = daOwork.getCustomerByMail(email);
         Doctor check2=daOwork.getDocByEmail(email);
-        System.out.println("проверка " +check);
-        System.out.println("проверка2 " +check2);
         if (check.getEmail()==null && check2.getEmail()==null) {
         Customer customer = new Customer();
         customer.setName(name);
@@ -42,7 +38,6 @@ public class EnterService {
         customer.setPass(pass);
         customer=daOwork.addNewCustomer(customer);
         return customer; }
-
         else return null;
     }
 

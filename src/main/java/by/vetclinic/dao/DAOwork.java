@@ -68,7 +68,6 @@ public class DAOwork {
         preparedStatement.setString(5,doc.getPass());
         preparedStatement.setString(6,doc.getPosition());
         preparedStatement.setLong(7,doc.getId());
-        System.out.println("set:" + doc.toString());
         preparedStatement.executeUpdate();
         connection.close();
         return doc;
@@ -256,7 +255,6 @@ public class DAOwork {
         preparedStatement.setString(4,customer.getEmail());
         preparedStatement.setString(5,customer.getPass());
         preparedStatement.setLong(6,customer.getId());
-        System.out.println("set:" + customer.toString());
         preparedStatement.executeUpdate();
         connection.close();
         return customer;
@@ -324,7 +322,7 @@ public class DAOwork {
             customer.setTotalPayment(result.getDouble(10));
             customer.setDiscount(result.getInt(11));
         }
-        System.out.println(customer);
+
         connection.close();
         return customer;
     }
