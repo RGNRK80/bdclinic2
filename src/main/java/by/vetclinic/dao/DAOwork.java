@@ -24,9 +24,14 @@ public class DAOwork {
 
     }
 
+    public Connection connect() throws SQLException {
+        Connection connectionEx=DriverManager.getConnection(url,log,pass);
+        return connectionEx;
+    }
+
    // @Override
     public Doctor addNewDoc(Doctor doc) throws SQLException {
-       connection = DriverManager.getConnection(url,log,pass);
+        connection = connect();
         PreparedStatement preparedStatement=connection.prepareStatement(ADD_NEW_DOC);
         preparedStatement.setString(1,doc.getName());
         preparedStatement.setString(2,doc.getSurname());
@@ -53,7 +58,7 @@ public class DAOwork {
 
 //  @Override
     public Doctor setDoc(Doctor doc) throws SQLException {
-        connection = DriverManager.getConnection(url,log,pass);
+        connection = connect();
         String insert = "UPDATE doc Set name=?, surname=?, tel=?, email_log=?, pass=?, position=? WHERE idDoc=?";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1,doc.getName());
@@ -76,7 +81,7 @@ public class DAOwork {
 */
   //  @Override
     public Doctor getDocById(long id) throws SQLException {
-        connection = DriverManager.getConnection(url,log,pass);
+        connection = connect();
         Doctor doctor=new Doctor();
         doctor.setId(id);
         String insert = "SELECT * FROM doc where idDoc=?";
@@ -105,7 +110,7 @@ public class DAOwork {
 
 
     public Doctor getDocByEmail(String email) throws SQLException {
-        connection = DriverManager.getConnection(url,log,pass);
+        connection = connect();
         Doctor doctor=new Doctor();
 
         String insert = "SELECT * FROM doc where email_log=?";
@@ -142,7 +147,7 @@ public class DAOwork {
 
    // @Override
     public ArrayList<Doctor> getDocByName(String name) throws SQLException{
-        connection = DriverManager.getConnection(url,log,pass);
+        connection = connect();
         ArrayList<Doctor> docList = new ArrayList<>();
         Doctor doctor=new Doctor();
         String insert = "SELECT * FROM doc where name=?";
@@ -168,7 +173,7 @@ public class DAOwork {
 
   // @Override
     public ArrayList<Doctor> getDocBySurName(String surname) throws SQLException {
-        connection = DriverManager.getConnection(url,log,pass);
+        connection = connect();
       ArrayList<Doctor> docList = new ArrayList<>();
         Doctor doctor=new Doctor();
         String insert = "SELECT * FROM doc where surname=?";
@@ -198,7 +203,7 @@ public class DAOwork {
 
 
     public void setDocToPet(Doctor doc, Pet pet) throws SQLException {
-        connection = DriverManager.getConnection(url,log,pass);
+        connection = connect();
         String insert = "INSERT INTO doc_has_pet (`doc_idDoc`,`pet_idPet`) VALUES('?','?')";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1, String.valueOf(doc.getId()));
@@ -208,7 +213,7 @@ public class DAOwork {
     }
 
     public void setCustomerToPet(Customer customer, Pet pet) throws SQLException {
-        connection = DriverManager.getConnection(url,log,pass);
+        connection = connect();
         String insert = "INSERT INTO Pet_has_customer (`pet_idPet`,`customer_info_idCustomer`) VALUES('?','?')";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(2, String.valueOf(customer.getId()));
@@ -227,7 +232,7 @@ public class DAOwork {
 
         //System.out.println(" схема работает? "+ !connection.isClosed());
        //  System.out.println(" схема  "+ connection.getCatalog());
-
+        connection=connect();
         String insert = "INSERT INTO customer (`name`, `surname`, `tel`, `email_log`, `pass`) VALUES(?,?,?,?,?)";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1,customer.getName());
@@ -236,13 +241,13 @@ public class DAOwork {
         preparedStatement.setString(4,customer.getEmail());
         preparedStatement.setString(5,customer.getPass());
         preparedStatement.execute();
-
         connection.close();
         return customer;
     }
 
    // @Override
     public Customer setCustomer(Customer customer) throws SQLException {
+        connection=connect();
         String insert = "UPDATE customer Set name=?, surname=?, tel=?, email_log=?, pass=? WHERE idCustomer=?";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1,customer.getName());
@@ -274,6 +279,7 @@ public class DAOwork {
 */
     //@Override
     public Customer getCustomerById(long id) throws SQLException {
+        connection=connect();
         Customer customer=new Customer();
         customer.setId(id);
         String insert = "SELECT * FROM customer where idCustomer=?";
@@ -300,6 +306,7 @@ public class DAOwork {
     public Customer getCustomerByMail(String emale) throws SQLException {
         Customer customer=new Customer();
         String insert = "SELECT * FROM customer where email_log=?";
+        connection=connect();
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1, emale);
         ResultSet result = preparedStatement.executeQuery();
@@ -317,6 +324,7 @@ public class DAOwork {
             customer.setTotalPayment(result.getDouble(10));
             customer.setDiscount(result.getInt(11));
         }
+        System.out.println(customer);
         connection.close();
         return customer;
     }
@@ -330,6 +338,7 @@ public class DAOwork {
 
   //  @Override
     public Pet addNewPet(Pet pet) throws SQLException {
+        connection=connect();
         String insert = "INSERT INTO pet (`name`, `type`, `sex`, `age`, `date_inn`) VALUES(?,?,?,?,?)";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1,pet.getName());
@@ -368,7 +377,7 @@ public class DAOwork {
 
   //  @Override
     public Pet setPet(Pet pet) throws SQLException {
-
+        connection=connect();
         String insert = "UPDATE pet Set name=?, type=?, sex=?, age=?, date_inn=?,condition=?,history=?, drugs=?, total_history=? WHERE idPet=?";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);
         preparedStatement.setString(1,pet.getName());
@@ -400,6 +409,7 @@ public class DAOwork {
     */
 //    @Override
     public Pet getPetbyid(long id) throws SQLException {
+        connection=connect();
         Pet pet=new Pet();
         String insert = "SELECT * FROM pet where idPet=?";
         PreparedStatement preparedStatement=connection.prepareStatement(insert);

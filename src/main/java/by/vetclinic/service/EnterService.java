@@ -30,8 +30,10 @@ public class EnterService {
     // возвращает null если пользователь или доктор по этой почте существует или  возвращает customer если  логин свободен;
     public Customer addNewCustomer(String name, String surname, String email, String tel, String pass) throws SQLException {
         Customer check = daOwork.getCustomerByMail(email);
-        if (check==null) {daOwork.getDocByEmail(email);}
-        if (check==null) {
+        Doctor check2=daOwork.getDocByEmail(email);
+        System.out.println("проверка " +check);
+        System.out.println("проверка2 " +check2);
+        if (check.getEmail()==null && check2.getEmail()==null) {
         Customer customer = new Customer();
         customer.setName(name);
         customer.setSurname(surname);
@@ -40,6 +42,7 @@ public class EnterService {
         customer.setPass(pass);
         customer=daOwork.addNewCustomer(customer);
         return customer; }
+
         else return null;
     }
 
