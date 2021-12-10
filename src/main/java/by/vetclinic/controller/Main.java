@@ -52,13 +52,31 @@ public class Main {
         Условно - админ это доктор с ролью админ и должностью админ.
         доктор - по суть класс работника клиники.
 
+
+
          Добавить Пользователя  */
-
-
-
-
         EnterService enterService=new EnterService(url,user,pass);
-        enterService.addNewCustomer("Sam","Champlu","SC6@mail.com","+37500561","11111");
+        Customer customerToAdd = new Customer();
+        customerToAdd.setName("frodo");
+        customerToAdd.setSurname("beggins");
+        customerToAdd.setEmail("FB@Tolkin@com");
+        customerToAdd.setTel("+37500562");
+        customerToAdd.setPass("+37500562");
+
+        Customer customeradd = enterService.addNewCustomer(customerToAdd.getName(),customerToAdd.getSurname(),customerToAdd.getEmail(),
+                customerToAdd.getTel(),customerToAdd.getPass());
+
+        if (customeradd==null) {
+         System.out.println("Customer is exist");} else System.out.println(" Customer is added: " + customeradd.getName());
+
+        // Итого - сервисная функция по добавлению исчерпана либо добавление, либо возвращает что такое уже есть.
+
+
+
+
+
+
+
 
         String login="SC6@mail.com";
         String password="11111";
