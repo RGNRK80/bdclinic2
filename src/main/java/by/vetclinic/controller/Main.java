@@ -71,6 +71,7 @@ public class Main {
               // CustomerService service= new CustomerService(url,user,pass);
         }
 
+
         // по итогу у нас service с функициями заданной роли.
 
        //добавить в таблицу таки админа

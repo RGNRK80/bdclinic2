@@ -53,12 +53,6 @@ public class EnterService {
         if (doc.getRole()!=null) {role=doc.getRole();}
         Customer customer = daOwork.getCustomerByMail(login);
         if (customer.getRole()!=null) {role=customer.getRole();}
-
-
-
-
-
-
         return role;
     }
 
