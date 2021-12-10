@@ -11,11 +11,11 @@ import java.sql.SQLException;
 
 @Data
 public class EnterService {
-    String url;
-    String log;
-    String pass;
-    DAOwork daOwork;
-    Connection connection;
+    private String url;
+    private String log;
+    private String pass;
+    private DAOwork daOwork;
+    private Connection connection;
 
     public EnterService (String url,String log,String pass) throws SQLException {
         this.url =url;
@@ -27,9 +27,10 @@ public class EnterService {
         System.out.println("s "+this.pass);
     }
 
-    // возвращает null если пользователь существует или customer если  логин свободен;
+    // возвращает null если пользователь или доктор по этой почте существует или  возвращает customer если  логин свободен;
     public Customer addNewCustomer(String name, String surname, String email, String tel, String pass) throws SQLException {
         Customer check = daOwork.getCustomerByMail(email);
+        if (check==null) {daOwork.getDocByEmail(email);}
         if (check==null) {
         Customer customer = new Customer();
         customer.setName(name);
