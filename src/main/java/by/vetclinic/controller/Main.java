@@ -9,7 +9,6 @@ import by.vetclinic.service.CustomerService;
 import by.vetclinic.service.DoctorService;
 import by.vetclinic.service.EnterService;
 import by.vetclinic.service.Service;
-
 import java.sql.SQLException;
 
 public class Main {
@@ -84,20 +83,54 @@ public class Main {
         if (enterService.getRole(login,password)== Role.ADMIN) {
         Service service=new Service(url,user,pass);
 
+        /* функции
+
+           изменить данные доктора
+           изменить данные заказчика
+           изменить данные пета
+          + что останется....
+
+         */
+
         }
 
         if (enterService.getRole(login,password)== Role.DOCTOR){
                DoctorService service =new DoctorService(url,user,pass);
+               /*
+               функции:
+               - показать всех петов без доктора
+
+               - привязаться к пету - стать доктором
+               - показать всех петов
+               - изменить инфу пета
+
+               - изменить инфу свою
+               - показать хозяина пета
+
+
+
+
+               */
+
         }
 
         if (enterService.getRole(login,password)== Role.CUSTOMER) {
               CustomerService service= new CustomerService(url,user,pass);
+              /*
+              функции - показать свою инфу
+                      - изменить инфу
+                      - показать петов
+                      - добавить пета
+                      - погасить счет(опционально)
+
+               */
+
+
         }
 
 
         // по итогу у нас service с функициями заданной роли.
 
-       //добавить в таблицу таки админа
        // email должен быть уникальным для всех таблиц
 
 
