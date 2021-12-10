@@ -16,7 +16,7 @@ public class Main {
         // соединение с БД
         // подключение
 
-       String url ="jdbc:mysql://localhost:3306/mydbclinic";
+        String url ="jdbc:mysql://localhost:3306/mydbclinic";
         String user="root";
         String pass="dd286082";
         /*
@@ -53,7 +53,7 @@ public class Main {
 
 
 
-         Добавить Пользователя  */
+        Добавить Пользователя  */
         EnterService enterService=new EnterService(url,user,pass);
         Customer customerToAdd = new Customer();
         customerToAdd.setName("frodo");
@@ -82,28 +82,29 @@ public class Main {
 
         if (enterService.getRole(login,password)== Role.ADMIN) {
         Service service=new Service(url,user,pass);
-
         /* функции
-
            изменить данные доктора
            изменить данные заказчика
            изменить данные пета
           + что останется....
-
          */
+         service.setDoc(new Doctor());
+         service.setCustomer(new Customer());
+         service.setPet(new Pet());
 
         }
 
         if (enterService.getRole(login,password)== Role.DOCTOR){
                DoctorService service =new DoctorService(url,user,pass);
+               Doctor doctor = service.getDocByLogin(login);
+               Pet pet=new Pet();
                /*
                функции:
-               - показать всех петов без доктора
+               - показать всех петов без доктора   +
 
-               - привязаться к пету - стать доктором
+               - привязаться к пету - стать доктором  +
                - показать всех петов
                - изменить инфу пета
-
                - изменить инфу свою
                - показать хозяина пета
 
@@ -111,6 +112,10 @@ public class Main {
 
 
                */
+
+               service.petwithoutDoc();
+               service.setDocToPet(doctor,pet.getId());
+
 
         }
 

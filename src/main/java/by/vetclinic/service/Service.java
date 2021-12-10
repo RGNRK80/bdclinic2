@@ -84,10 +84,15 @@ public class Service {
         Customer customer1=daOwork.setCustomer(customer);
         return customer1;
     }
-    public Doctor getDocById (int id) throws SQLException {
+    public Doctor getDocById (long id) throws SQLException {
         Doctor doctor=daOwork.getDocById(id);
         return doctor;
     }
+    public Doctor getDocByLogin(String email) throws SQLException {
+        Doctor doctor=daOwork.getDocByEmail(email);
+        return doctor;
+    }
+
     public Doctor setDoc(Doctor doc) throws SQLException {
         Doctor doctor=daOwork.setDoc(doc);
         return doctor;
@@ -106,6 +111,20 @@ public class Service {
        Pet pet2= daOwork.addNewPet(pet);
         return pet2;
     }
+    public Pet setPet(Pet pet) throws SQLException {
+        Pet rezult=daOwork.setPet(pet);
+        return rezult;
+    }
 
+    // все петы без доктора
+    public ArrayList<Pet> petwithoutDoc() throws SQLException {
+        ArrayList<Pet> rezult=daOwork.getPetsWithoutDoc();
+        return rezult;
+    }
+
+    public void setDocToPet(Doctor doc, long idpet) throws SQLException {
+        Pet pet=daOwork.getPetbyid(idpet);
+        daOwork.setDocToPet(doc,pet);
+    }
 
 }
