@@ -12,7 +12,8 @@ public class DAOwork {
     private String url;
     private String log;
     private String pass;
-    private final String ADD_NEW_DOC= "INSERT INTO doc (`name`, `surname`, `tel`, `email_log`, `pass`,`position`) VALUES(?,?,?,?,?,?)";
+    private final String ADD_NEW_DOC= "INSERT INTO doc (`name`, `surname`, `tel`, `email_log`, `pass`,`position`)" +
+                                      " VALUES(?,?,?,?,?,?)";
 
     public DAOwork(String url, String log, String pass) throws SQLException {
         this.url=url;
