@@ -12,6 +12,7 @@ public class DAOwork {
     private String url;
     private String log;
     private String pass;
+    private final String ADD_NEW_DOC= "INSERT INTO doc (`name`, `surname`, `tel`, `email_log`, `pass`,`position`) VALUES(?,?,?,?,?,?)";
 
     public DAOwork(String url, String log, String pass) throws SQLException {
         this.url=url;
@@ -25,9 +26,7 @@ public class DAOwork {
    // @Override
     public Doctor addNewDoc(Doctor doc) throws SQLException {
        connection = DriverManager.getConnection(url,log,pass);
-
-        String insert = "INSERT INTO doc (`name`, `surname`, `tel`, `email_log`, `pass`,`position`) VALUES(?,?,?,?,?,?)";
-        PreparedStatement preparedStatement=connection.prepareStatement(insert);
+        PreparedStatement preparedStatement=connection.prepareStatement(ADD_NEW_DOC);
         preparedStatement.setString(1,doc.getName());
         preparedStatement.setString(2,doc.getSurname());
         preparedStatement.setString(3,doc.getTel());
