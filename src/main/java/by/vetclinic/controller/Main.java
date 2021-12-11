@@ -15,7 +15,6 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         // соединение с БД
         // подключение
-
         String url ="jdbc:mysql://localhost:3306/mydbclinic";
         String user="root";
         String pass="dd286082";
@@ -69,12 +68,6 @@ public class Main {
          System.out.println("Customer is exist");} else System.out.println(" Customer is added: " + customeradd.getName());
 
         // - сервисная функция по добавлению исчерпана либо добавление, либо возвращает что такое уже есть.
-
-
-
-
-
-
 
 
         String login="SC6@mail.com";
