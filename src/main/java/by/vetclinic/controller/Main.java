@@ -68,7 +68,7 @@ public class Main {
         if (customeradd==null) {
          System.out.println("Customer is exist");} else System.out.println(" Customer is added: " + customeradd.getName());
 
-        // Итого - сервисная функция по добавлению исчерпана либо добавление, либо возвращает что такое уже есть.
+        // - сервисная функция по добавлению исчерпана либо добавление, либо возвращает что такое уже есть.
 
 
 
@@ -121,6 +121,7 @@ public class Main {
 
         if (enterService.getRole(login,password)== Role.CUSTOMER) {
               CustomerService service= new CustomerService(url,user,pass);
+              Customer customer=new Customer();
               /*
               функции - показать свою инфу
                       - изменить инфу
