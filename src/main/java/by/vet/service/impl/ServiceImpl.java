@@ -26,6 +26,8 @@ public class ServiceImpl {
     }
 
     public UserDataDTO addNewUser (RegUserDataDTO user) {
+
+
        UserDataDTO userDataDTO=dw.addNewUser(user);
        return userDataDTO;
     }

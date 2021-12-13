@@ -6,6 +6,7 @@ import by.vet.dto.RegUserDataDTO;
 import by.vet.entity.Role;
 import by.vet.entity.Status;
 import by.vet.service.impl.ServiceImpl;
+import by.vet.validator.Validator;
 
 import java.sql.SQLException;
 
@@ -30,10 +31,16 @@ public class Main {
         regUserDataDTO.setEmail("DJ1@pirates.com");
         regUserDataDTO.setName("Davy");
         regUserDataDTO.setSurname("Jones1");
-        regUserDataDTO.setPass("1111");
+        regUserDataDTO.setPass("adf");
         regUserDataDTO.setRole(Role.CUSTOMER);
         regUserDataDTO.setStatus(Status.NEW);
-        System.out.println(service.addNewUser(regUserDataDTO));
+
+
+
+     //   System.out.println(service.addNewUser(regUserDataDTO));
+        System.out.println("email " + Validator.emailPatternMatches(regUserDataDTO.getEmail()));
+        System.out.println("pass "+Validator.passPatternMatches(""));
+        System.out.println("pass "+Validator.passPatternMatches1("123456789"));
 
 
 
