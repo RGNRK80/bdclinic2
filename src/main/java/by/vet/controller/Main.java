@@ -1,5 +1,6 @@
 package by.vet.controller;
 
+import by.vet.dao.exception.DAOConnectEx;
 import by.vet.dao.exception.DAONotAddedUserExeption;
 import by.vet.dto.RegUserDataDTO;
 import by.vet.entity.Role;
@@ -9,13 +10,18 @@ import by.vet.service.impl.ServiceImpl;
 import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) throws SQLException, DAONotAddedUserExeption {
+    public static void main(String[] args)  {
 
         String url ="jdbc:mysql://localhost:3306/vetclinic";
         String user="root";
         String pass="dd286082";
 
-        ServiceImpl service=new ServiceImpl(url,user,pass);
+        ServiceImpl service= null;
+        try {
+            service = new ServiceImpl(url,user,pass);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         //регистрация
 
@@ -27,7 +33,7 @@ public class Main {
         regUserDataDTO.setPass("1111");
         regUserDataDTO.setRole(Role.CUSTOMER);
         regUserDataDTO.setStatus(Status.NEW);
-        service.addNewUser(regUserDataDTO);
+        System.out.println(service.addNewUser(regUserDataDTO));
 
 
 

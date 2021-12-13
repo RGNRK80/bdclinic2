@@ -1,5 +1,6 @@
 package by.vet.service.impl;
 
+import by.vet.dao.exception.DAOConnectEx;
 import by.vet.dao.exception.DAONotAddedUserExeption;
 import by.vet.dao.impl.DAOWork;
 import by.vet.dto.RegUserDataDTO;
@@ -24,7 +25,7 @@ public class ServiceImpl {
 //        System.out.println("s "+this.pass);
     }
 
-    public UserDataDTO addNewUser (RegUserDataDTO user) throws DAONotAddedUserExeption {
+    public UserDataDTO addNewUser (RegUserDataDTO user) {
        UserDataDTO userDataDTO=dw.addNewUser(user);
        return userDataDTO;
     }
