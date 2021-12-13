@@ -1,7 +1,7 @@
 package by.vet.dao.impl;
 
 import by.vet.dao.exception.DAOConnectEx;
-import by.vet.dao.exception.USER_Exist;
+import by.vet.dao.exception.DaoUserExistException;
 import by.vet.dto.RegUserDataDTO;
 import by.vet.dto.UserDataDTO;
 import by.vet.entity.Status;
@@ -33,18 +33,20 @@ public class DAOWork {
         } catch (SQLException e)
         {
             throw new DAOConnectEx("...not connected...");
+
+
+
+
         }
         return connect;
     }
 
-    public UserDataDTO addNewUser (RegUserDataDTO user) throws USER_Exist {
+    public UserDataDTO addNewUser (RegUserDataDTO user)  {
 
-        UserDataDTO userDataDTO = new UserDataDTO();
+        UserDataDTO userDataDTO = null;
         try {
             connection = connect();
             connection.setAutoCommit(false);
-
-
 
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_USER, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1,user.getLogin_tel());
@@ -65,18 +67,72 @@ public class DAOWork {
                 preparedStatement.executeUpdate();
             }
             connection.commit();
-            connection.close();
-        } catch (DAOConnectEx e) {
-            e.printStackTrace();
-
-        } catch (SQLIntegrityConstraintViolationException e2) {
-            e2.printStackTrace();
-            throw new USER_Exist("...user is exist...");
-
+           // connection.close();
         }
-        catch (SQLException throwables) {
+
+
+        // ошибка.. пользователь существует
+        catch (SQLIntegrityConstraintViolationException throwables)
+        {
+            try {
+                throw new DaoUserExistException(".......user exist");
+            } catch (DaoUserExistException e) {
+              //  e.printStackTrace();
+            }
+        }
+
+
+
+
+        catch (SQLException throwables)
+        {
             throwables.printStackTrace();
         }
+
+        catch (DAOConnectEx daoConnectEx) {
+            daoConnectEx.printStackTrace();
+        }
+
+
+
+
+
+       /* catch (SQLIntegrityConstraintViolationException | DAOConnectEx ex) {
+            //ex.printStackTrace();
+            throw new DAOUSERExist("...user is exist...");        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+      */
+
+
+
+
+
+
+        /*
+        catch (DAOConnectEx e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            throw new DAONotAddedUserExeption("User not added", e);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+                   catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }*/
+
+
+
+
       return userDataDTO;
     }
 

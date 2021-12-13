@@ -1,8 +1,7 @@
 package by.vet.controller;
 
-import by.vet.dao.exception.USER_Exist;
+import by.vet.dao.exception.DAONotAddedUserExeption;
 import by.vet.dto.RegUserDataDTO;
-import by.vet.dto.UserDataDTO;
 import by.vet.entity.Role;
 import by.vet.entity.Status;
 import by.vet.service.impl.ServiceImpl;
@@ -10,7 +9,7 @@ import by.vet.service.impl.ServiceImpl;
 import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) throws SQLException, USER_Exist {
+    public static void main(String[] args) throws SQLException, DAONotAddedUserExeption {
 
         String url ="jdbc:mysql://localhost:3306/vetclinic";
         String user="root";
@@ -28,7 +27,6 @@ public class Main {
         regUserDataDTO.setPass("1111");
         regUserDataDTO.setRole(Role.CUSTOMER);
         regUserDataDTO.setStatus(Status.NEW);
-
         service.addNewUser(regUserDataDTO);
 
 

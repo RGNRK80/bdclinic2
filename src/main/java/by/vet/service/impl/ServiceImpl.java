@@ -1,6 +1,6 @@
 package by.vet.service.impl;
 
-import by.vet.dao.exception.USER_Exist;
+import by.vet.dao.exception.DAONotAddedUserExeption;
 import by.vet.dao.impl.DAOWork;
 import by.vet.dto.RegUserDataDTO;
 import by.vet.dto.UserDataDTO;
@@ -19,12 +19,12 @@ public class ServiceImpl {
         this.log=log;
         this.pass=pass;
         dw=new DAOWork(url, log, pass);
-        System.out.println("s " +this.url);
-        System.out.println("s "+this.log);
-        System.out.println("s "+this.pass);
+//        System.out.println("s " +this.url);
+//        System.out.println("s "+this.log);
+//        System.out.println("s "+this.pass);
     }
 
-    public UserDataDTO addNewUser (RegUserDataDTO user) throws USER_Exist {
+    public UserDataDTO addNewUser (RegUserDataDTO user) throws DAONotAddedUserExeption {
        UserDataDTO userDataDTO=dw.addNewUser(user);
        return userDataDTO;
     }
