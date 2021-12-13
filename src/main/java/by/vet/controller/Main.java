@@ -39,8 +39,8 @@ public class Main {
 
      //   System.out.println(service.addNewUser(regUserDataDTO));
         System.out.println("email " + Validator.emailPatternMatches(regUserDataDTO.getEmail()));
-        System.out.println("pass "+Validator.passPatternMatches(""));
-        System.out.println("pass "+Validator.passPatternMatches1("123456789"));
+        System.out.println("pass "+Validator.passPatternMatches("1As!wewewewe"));
+
 
 
 
