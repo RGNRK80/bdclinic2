@@ -36,10 +36,9 @@ public class Main {
         regUserDataDTO.setStatus(Status.NEW);
 
 
+        // вход
 
-     //   System.out.println(service.addNewUser(regUserDataDTO));
-        System.out.println("email " + Validator.emailPatternMatches(regUserDataDTO.getEmail()));
-        System.out.println("pass "+Validator.passPatternMatches("1As!wewewewe"));
+
 
 
 

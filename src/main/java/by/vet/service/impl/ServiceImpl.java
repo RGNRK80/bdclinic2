@@ -5,6 +5,7 @@ import by.vet.dao.exception.DAONotAddedUserExeption;
 import by.vet.dao.impl.DAOWork;
 import by.vet.dto.RegUserDataDTO;
 import by.vet.dto.UserDataDTO;
+import by.vet.validator.Validator;
 
 
 import java.sql.SQLException;
@@ -20,15 +21,11 @@ public class ServiceImpl {
         this.log=log;
         this.pass=pass;
         dw=new DAOWork(url, log, pass);
-//        System.out.println("s " +this.url);
-//        System.out.println("s "+this.log);
-//        System.out.println("s "+this.pass);
     }
 
     public UserDataDTO addNewUser (RegUserDataDTO user) {
-
-
-       UserDataDTO userDataDTO=dw.addNewUser(user);
+        UserDataDTO userDataDTO=null;
+        if (Validator.validateRegData(user)) {userDataDTO=dw.addNewUser(user);}
        return userDataDTO;
     }
 

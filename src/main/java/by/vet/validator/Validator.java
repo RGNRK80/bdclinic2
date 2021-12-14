@@ -14,38 +14,41 @@ public class Validator {
         + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
     private final static String  PASS_REGEX_PATTERN ="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
-    private final static String  LOGIN_REGEX_PATTERN ="^[a-z]+([-_]?[a-z0-9]+){0,2}$";
+   // private final static String  LOGIN_REGEX_PATTERN ="^[a-z]+([-_]?[a-z0-9]+){0,2}$";
+    private final static String  LOGIN_REGEX_PATTERN ="^(\\s*)?(\\+)?([- _():=+]?\\d[- _():=+]?){10,14}(\\s*)?$";
     private final static String  NAME_REGEX_PATTERN ="^([a-zA-Z]{2,}\\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\\s?([a-zA-Z]{1,})?)";
 
 
 
     public static boolean validateRegData(RegUserDataDTO user) {
     boolean rezult=false;
-    String login = user.getLogin_tel();
-    String mail = user.getEmail();
-    String name = user.getName();
-    String surname= user.getSurname();
-    String pass=user.getPass();
+     if (   loginVal(user.getLogin_tel()) &&
+             emailVal(user.getEmail()) &&
+             nameVal(user.getName()) &&
+             nameVal(user.getSurname()) &&
+             passVal(user.getPass())
+
+      ) return true;
+
     return false;
     }
 
 
-    public static boolean emailPatternMatches(String emailAddress) {
+    public static boolean emailVal(String emailAddress) {
         return Pattern.compile(emailRegexPattern).matcher(emailAddress).matches();
     }
 
-    public static boolean passPatternMatches(String pass) {
+    public static boolean passVal(String pass) {
         return Pattern.compile(PASS_REGEX_PATTERN).matcher(pass).matches();
     }
 
-    //Pattern.compile(regex).matcher(input).matches()
+    public static boolean nameVal(String name) {
+        return Pattern.compile(NAME_REGEX_PATTERN).matcher(name).matches();
+    }
 
-//    public static boolean passPatternMatches1(String pass) {
-//        Pattern pattern = Pattern.compile(PASS_REGEX_PATTERN);
-//      //  System.out.println(pattern);
-//
-//        Matcher matcher = pattern.matcher(pass);
-//        return matcher.matches();
-//    }
+    public static boolean loginVal(String login) {
+        return Pattern.compile(LOGIN_REGEX_PATTERN).matcher(login).matches();
+    }
+
 
 }
