@@ -54,8 +54,10 @@ public class Main {
 
         userData = service.enter(enterUser);
         System.out.println(userData);
-
         // null если нет логина-пользователя и пароля
+
+        //добавляем пета
+
 
 
 
