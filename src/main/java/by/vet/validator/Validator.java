@@ -16,7 +16,8 @@ public class Validator {
     private final static String  PASS_REGEX_PATTERN ="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
    // private final static String  LOGIN_REGEX_PATTERN ="^[a-z]+([-_]?[a-z0-9]+){0,2}$";
     private final static String  LOGIN_REGEX_PATTERN ="^(\\s*)?(\\+)?([- _():=+]?\\d[- _():=+]?){10,14}(\\s*)?$";
-    private final static String  NAME_REGEX_PATTERN ="^([a-zA-Z]{2,}\\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\\s?([a-zA-Z]{1,})?)";
+   // private final static String  NAME_REGEX_PATTERN ="^([a-zA-Z]{2,}\\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\\s?([a-zA-Z]{1,})?)";
+    private final static String  NAME_REGEX_PATTERN ="^([A-Z][a-z]*)([\\\\s\\\\\\'-][A-Z][a-z]*)*";
 
 
 

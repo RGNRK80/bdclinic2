@@ -3,8 +3,10 @@ package by.vet.service.impl;
 import by.vet.dao.exception.DAOConnectEx;
 import by.vet.dao.exception.DAONotAddedUserExeption;
 import by.vet.dao.impl.DAOWork;
+import by.vet.dto.EnterDTO;
 import by.vet.dto.RegUserDataDTO;
 import by.vet.dto.UserDataDTO;
+import by.vet.entity.Status;
 import by.vet.validator.Validator;
 
 
@@ -25,8 +27,19 @@ public class ServiceImpl {
 
     public UserDataDTO addNewUser (RegUserDataDTO user) {
         UserDataDTO userDataDTO=null;
+        System.out.println(Validator.validateRegData(user));
         if (Validator.validateRegData(user)) {userDataDTO=dw.addNewUser(user);}
        return userDataDTO;
+    }
+
+    public UserDataDTO enter (EnterDTO user) {
+        UserDataDTO userDataDTO=null;
+        if (Validator.loginVal(user.getLogin()) && Validator.passVal(user.getPass())) {
+            userDataDTO=dw.enter(user);
+        }
+        if (userDataDTO.getLogin()==null) {userDataDTO=null;}
+        if (userDataDTO.getStatus()== Status.CLOSED) {userDataDTO=null;}
+         return userDataDTO;
     }
 
 }
