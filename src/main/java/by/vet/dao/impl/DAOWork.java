@@ -27,7 +27,8 @@ public class DAOWork {
     private final String ADD_PET_DETAILS_BY_ID = "INSERT INTO pet_history (`pet_idpet`, `idUserDoc`, `idUserCustomer`,`date_inn`," +
             "`conditions`,`status`) VALUES(?,?,?,?,?,?)";
     private final String GET_PETS = "SELECT * FROM pet_history join pet on pet_idpet=idpet where idUserDoc=0";
-    private final String SET_DOC_TO_PET = "UPDATE pet_history Set idUserDoc=? WHERE pet_idpet=? AND idUserDoc=0"; //чекнуть
+    private final String SET_DOC_TO_PET =
+            "UPDATE pet_history Set idUserDoc=? WHERE pet_idpet=? AND idUserDoc=0 AND status=ACTIVE"; //чекнуть
 
 
     public DAOWork(String url, String log, String pass)  {

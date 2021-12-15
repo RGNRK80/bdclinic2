@@ -79,6 +79,7 @@ public class Main {
         //акцепт доктора
         long idPet=3;
         service.getDocToPet(userData,idPet);
+        //изменения состояния пета доктором
 
 
 
