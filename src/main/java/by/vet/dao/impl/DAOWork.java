@@ -28,7 +28,9 @@ public class DAOWork {
             "`conditions`,`status`) VALUES(?,?,?,?,?,?)";
     private final String GET_PETS = "SELECT * FROM pet_history join pet on pet_idpet=idpet where idUserDoc=0";
     private final String SET_DOC_TO_PET = "UPDATE pet_history Set idUserDoc=? WHERE pet_idpet=? AND idUserDoc=0"; //чекнуть
-    public DAOWork(String url, String log, String pass) throws SQLException {
+
+
+    public DAOWork(String url, String log, String pass)  {
         this.url = url;
         this.log = log;
         this.pass = pass;
