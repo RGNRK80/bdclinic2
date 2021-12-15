@@ -42,8 +42,9 @@ public class ServiceImpl {
 
     public PetDataDTO addNewPet(RegPetDataDTO regpet) {
         PetDataDTO petDataDTO=null;
-        petDataDTO=dw.addNewPet(regpet);
+        if (Validator.nameVal(regpet.getName()) && Validator.nameVal(regpet.getType())) {
+        petDataDTO=dw.addNewPet(regpet);}
         return petDataDTO;
-            }
+    }
 
 }

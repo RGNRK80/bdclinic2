@@ -21,6 +21,10 @@ public class DAOWork {
     private final String ENTER_USER = "SELECT * FROM user JOIN userinfo ON id=user_id where login_tel=? and pass=?";
     private final String ADD_USER_DETAILS_BY_ID =
             "INSERT INTO userinfo (`user_id`, `name`, `surname`,`pass`,`role`,`status`) VALUES(?,?,?,?,?,?)";
+    private final String ADD_NEW_PET ="INSERT INTO pet (`name`, `type`, `sex`) VALUES(?,?,?)";
+    private final String ADD_PET_DETAILS_BY_ID = "INSERT INTO pet_history (`pet_idpet`, `idUserDoc`, `idUserCustomer`,`date_inn`," +
+            "`conditions`,`status`) VALUES(?,?,?,?,?,?)";
+
 
     public DAOWork(String url, String log, String pass) throws SQLException {
         this.url = url;
@@ -146,20 +150,26 @@ public class DAOWork {
             connection = connect();
             connection.setAutoCommit(false);
 
+            System.out.println(regpet);
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_PET, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, user.getLogin_tel());
-            preparedStatement.setString(2, user.getEmail());
-            preparedStatement.executeUpdate();
+            preparedStatement.setString(1, regpet.getName());
+            preparedStatement.setString(2, regpet.getType());
+            preparedStatement.setString(3, regpet.getSex());
+
+            preparedStatement.execute();
+
+
+
 
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
-                userDataDTO.setId(resultSet.getLong(1));
-                preparedStatement = connection.prepareStatement(ADD_USER_DETAILS_BY_ID);
-                preparedStatement.setLong(1, userDataDTO.getId());
-                preparedStatement.setString(2, user.getName());
-                preparedStatement.setString(3, user.getSurname());
-                preparedStatement.setString(4, user.getPass());
-                preparedStatement.setString(5, String.valueOf(user.getRole()));
+                petDataDTO.setIdPet(resultSet.getLong(1));
+                preparedStatement = connection.prepareStatement(ADD_PET_DETAILS_BY_ID);
+                preparedStatement.setLong(1, petDataDTO.getIdPet());
+                preparedStatement.setLong(2, 0);
+                preparedStatement.setLong(3, regpet.getIdCustomer());
+                preparedStatement.setString(4, regpet.getDateInn());
+                preparedStatement.setString(5, regpet.getCondition());
                 preparedStatement.setString(6, String.valueOf(Status.ACTIVE));
                 preparedStatement.executeUpdate();
             }

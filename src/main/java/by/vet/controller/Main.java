@@ -66,6 +66,7 @@ public class Main {
         regPet.setDateInn("2020-01-30");
         regPet.setCondition("");
         regPet.setStatus(Status.NEW);
+
         service.addNewPet(regPet);
 
 
