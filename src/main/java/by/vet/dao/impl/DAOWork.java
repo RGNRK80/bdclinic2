@@ -79,11 +79,12 @@ public class DAOWork {
         // ошибка.. пользователь существует
         catch (SQLIntegrityConstraintViolationException exception) {
             try {
-                throw new DaoUserExistException(".......user is not exist");       // - нету
+                throw new DaoUserExistException(".......user is  exist");       // - нету
             } catch (DaoUserExistException e) {
                 e.printStackTrace();
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
 
             try {
                 connection.rollback();
@@ -155,11 +156,7 @@ public class DAOWork {
             preparedStatement.setString(1, regpet.getName());
             preparedStatement.setString(2, regpet.getType());
             preparedStatement.setString(3, regpet.getSex());
-
             preparedStatement.execute();
-
-
-
 
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -175,12 +172,39 @@ public class DAOWork {
             }
             connection.commit();
             // connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
+     /*   catch (SQLIntegrityConstraintViolationException exception) {
+            try {
+                throw new DaoUserExistException(".......pet is  exist");       // - нету
+            } catch (DaoUserExistException e) {
+                e.printStackTrace();
+            }
+        }*/
+        catch (SQLException e) {
+
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+
+            try {
+                throw new DAONotAddedUserExeption("Pet not added");
+            } catch (DAONotAddedUserExeption ex) {
+                ex.printStackTrace();
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    try {
+                        throw new DAOConnectEx("Somethig wrong");
+                    } catch (DAOConnectEx exc) {
+                        exc.printStackTrace();
+                    }
+                }
+            }
+        }
         return petDataDTO;
-
-
     }
 }
