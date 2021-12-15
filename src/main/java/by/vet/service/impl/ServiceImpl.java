@@ -4,11 +4,14 @@ import by.vet.dao.exception.DAOConnectEx;
 import by.vet.dao.exception.DAONotAddedUserExeption;
 import by.vet.dao.impl.DAOWork;
 import by.vet.dto.*;
+import by.vet.entity.Pet;
+import by.vet.entity.Role;
 import by.vet.entity.Status;
 import by.vet.validator.Validator;
 
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ServiceImpl {
     String url;
@@ -46,5 +49,30 @@ public class ServiceImpl {
         petDataDTO=dw.addNewPet(regpet);}
         return petDataDTO;
     }
+
+    public ArrayList<Pet> getPets(UserDataDTO userDataDTO){
+        ArrayList<Pet> ar= new ArrayList<>();
+        ar=null;
+        ar=dw.getPets(userDataDTO);
+        return ar;
+
+    }
+
+    public ArrayList<Pet> getZPets(UserDataDTO userDataDTO){
+        ArrayList<Pet> ar= new ArrayList<>();
+        ar=null;
+        if (userDataDTO.getRole()== Role.DOCTOR && userDataDTO.getStatus()==Status.ACTIVE){
+        ar=dw.getZPets();}
+        return ar;
+    }
+
+
+    public PetDataDTO getDocToPet (UserDataDTO userDataDTO,long idpet){
+        PetDataDTO pet = null;
+        if (userDataDTO.getRole()== Role.DOCTOR && userDataDTO.getStatus()==Status.ACTIVE){
+            pet=dw.getDocToPet(userDataDTO.getId(), idpet);}
+        return pet;
+    }
+
 
 }

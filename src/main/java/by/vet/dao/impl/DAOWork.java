@@ -4,11 +4,13 @@ import by.vet.dao.exception.DAOConnectEx;
 import by.vet.dao.exception.DAONotAddedUserExeption;
 import by.vet.dao.exception.DaoUserExistException;
 import by.vet.dto.*;
+import by.vet.entity.Pet;
 import by.vet.entity.Role;
 import by.vet.entity.Status;
 import lombok.Data;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 @Data
 public class DAOWork {
@@ -24,8 +26,8 @@ public class DAOWork {
     private final String ADD_NEW_PET ="INSERT INTO pet (`name`, `type`, `sex`) VALUES(?,?,?)";
     private final String ADD_PET_DETAILS_BY_ID = "INSERT INTO pet_history (`pet_idpet`, `idUserDoc`, `idUserCustomer`,`date_inn`," +
             "`conditions`,`status`) VALUES(?,?,?,?,?,?)";
-
-
+    private final String GET_PETS = "SELECT * FROM pet_history join pet on pet_idpet=idpet where idUserDoc=0";
+    private final String SET_DOC_TO_PET = "UPDATE pet_history Set idUserDoc=? WHERE pet_idpet=? AND idUserDoc=0"; //чекнуть
     public DAOWork(String url, String log, String pass) throws SQLException {
         this.url = url;
         this.log = log;
@@ -115,7 +117,7 @@ public class DAOWork {
     public UserDataDTO enter (EnterDTO user) {
         UserDataDTO userDataDTO=new UserDataDTO();
 
-        System.out.println(user.getLogin() + "   " + user.getPass());
+       // System.out.println(user.getLogin() + "   " + user.getPass());
 
         try {
             connection = connect();
@@ -151,7 +153,7 @@ public class DAOWork {
             connection = connect();
             connection.setAutoCommit(false);
 
-            System.out.println(regpet);
+           // System.out.println(regpet);
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_PET, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, regpet.getName());
             preparedStatement.setString(2, regpet.getType());
@@ -207,4 +209,99 @@ public class DAOWork {
         }
         return petDataDTO;
     }
+
+    public ArrayList<Pet> getPets(UserDataDTO userDataDTO){
+        ArrayList<Pet> ar= new ArrayList<>();
+        Pet pet=new Pet();
+
+
+        try {
+            connection = connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_PETS);
+            preparedStatement.setLong(1, userDataDTO.getId());
+            ResultSet resultSet =preparedStatement.executeQuery();
+
+
+            if (resultSet.next()) {
+                pet.setId(resultSet.getLong(1));
+                pet.setName(resultSet.getString(1));
+                pet.setType(resultSet.getString(1));
+                pet.setSex(resultSet.getString(1));
+                ar.add(pet);
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ar;
+    }
+
+
+    public ArrayList<Pet> getZPets(){
+        ArrayList<Pet> ar= new ArrayList<>();
+        Pet pet=new Pet();
+
+
+        try {
+            connection = connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_PETS);
+            ResultSet resultSet =preparedStatement.executeQuery();
+
+
+            while (resultSet.next()) {
+                pet.setId(resultSet.getLong(1));
+                pet.setName(resultSet.getString(8));
+                pet.setType(resultSet.getString(9));
+                pet.setSex(resultSet.getString(10));
+                ar.add(pet);
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ar;
+
+    }
+
+
+
+    public PetDataDTO getDocToPet (long iddoc, long idpet){
+        PetDataDTO pet = new PetDataDTO();
+        pet=null;
+
+
+        try {
+            connection = connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(SET_DOC_TO_PET);
+            preparedStatement.setLong(1, iddoc);
+            preparedStatement.setLong(2, idpet);
+
+            ResultSet resultSet =preparedStatement.executeQuery();
+
+
+            while (resultSet.next()) {
+                pet.setIdPet(resultSet.getLong(1));
+                pet.setName(resultSet.getString(8));
+                pet.setType(resultSet.getString(9));
+                pet.setSex(resultSet.getString(10));
+
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pet;
+
+    }
+
+
+
+
 }
+
+
+
+
