@@ -28,7 +28,7 @@ public class DAOWork {
             "`conditions`,`status`) VALUES(?,?,?,?,?,?)";
     private final String GET_PETS = "SELECT * FROM pet_history join pet on pet_idpet=idpet where idUserDoc=0";
     private final String SET_DOC_TO_PET =
-            "UPDATE pet_history Set idUserDoc=? WHERE pet_idpet=? AND idUserDoc=0 AND status=ACTIVE"; //чекнуть
+            "UPDATE pet_history Set idUserDoc=? WHERE pet_idpet=? AND idUserDoc=0 AND status=ACTIVE"; //чекнуть - добавить id хистори
 
 
     public DAOWork(String url, String log, String pass)  {
@@ -86,11 +86,10 @@ public class DAOWork {
             try {
                 throw new DaoUserExistException(".......user is  exist");       // - нету
             } catch (DaoUserExistException e) {
-                e.printStackTrace();
+              //  e.printStackTrace();
             }
         }
         catch (SQLException e) {
-
             try {
                 connection.rollback();
             } catch (SQLException ex) {
@@ -100,7 +99,7 @@ public class DAOWork {
             try {
                 throw new DAONotAddedUserExeption("User not added");
             } catch (DAONotAddedUserExeption ex) {
-                ex.printStackTrace();
+               // ex.printStackTrace();
             } finally {
                 try {
                     connection.close();

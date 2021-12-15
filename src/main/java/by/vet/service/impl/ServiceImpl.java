@@ -19,7 +19,7 @@ public class ServiceImpl {
     String pass;
     DAOWork dw;
 
-    public ServiceImpl (String url,String log,String pass) throws SQLException {
+    public ServiceImpl (String url,String log,String pass)  {
         this.url =url;
         this.log=log;
         this.pass=pass;
