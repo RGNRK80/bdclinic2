@@ -3,6 +3,7 @@ package by.vet.controller;
 import by.vet.dao.exception.DAOConnectEx;
 import by.vet.dao.exception.DAONotAddedUserExeption;
 import by.vet.dto.EnterDTO;
+import by.vet.dto.RegPetDataDTO;
 import by.vet.dto.RegUserDataDTO;
 import by.vet.dto.UserDataDTO;
 import by.vet.entity.Role;
@@ -57,6 +58,16 @@ public class Main {
         // null если нет логина-пользователя и пароля
 
         //добавляем пета
+        RegPetDataDTO regPet = new RegPetDataDTO();
+        regPet.setName("Pirat");
+        regPet.setType("Parrot");
+        regPet.setSex("M");
+        regPet.setIdCustomer(userData.getId());
+        regPet.setDateInn("2020-01-30");
+        regPet.setCondition("");
+        regPet.setStatus(Status.NEW);
+        service.addNewPet(regPet);
+
 
 
 
