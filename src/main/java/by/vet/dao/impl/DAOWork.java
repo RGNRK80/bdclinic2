@@ -1,5 +1,4 @@
 package by.vet.dao.impl;
-
 import by.vet.dao.exception.DAOConnectEx;
 import by.vet.dao.exception.DAONotAddedUserExeption;
 import by.vet.dao.exception.DaoUserExistException;
@@ -8,7 +7,6 @@ import by.vet.entity.Pet;
 import by.vet.entity.Role;
 import by.vet.entity.Status;
 import lombok.Data;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -16,44 +14,47 @@ import java.util.ArrayList;
 public class DAOWork {
     private Connection connection;
     private String url;
-    private String log;
-    private String pass;
+    private String login;
+    private String password;
 
-    private final String ADD_NEW_USER = "INSERT INTO user (`login_tel`, `mail`) VALUES(?,?)";
-    private final String ENTER_USER = "SELECT * FROM user JOIN userinfo ON id=user_id where login_tel=? and pass=?";
+    private final String ADD_NEW_USER =
+            "INSERT INTO user (`login_tel`, `mail`) VALUES(?,?)";
+    private final String ENTER_USER =
+            "SELECT * FROM user JOIN userinfo ON id=user_id where login_tel=? and pass=?";
     private final String ADD_USER_DETAILS_BY_ID =
             "INSERT INTO userinfo (`user_id`, `name`, `surname`,`pass`,`role`,`status`) VALUES(?,?,?,?,?,?)";
-    private final String ADD_NEW_PET ="INSERT INTO pet (`name`, `type`, `sex`) VALUES(?,?,?)";
-    private final String ADD_PET_DETAILS_BY_ID = "INSERT INTO pet_history (`pet_idpet`, `idUserDoc`, `idUserCustomer`,`date_inn`," +
+    private final String ADD_NEW_PET
+            ="INSERT INTO pet (`name`, `type`, `sex`) VALUES(?,?,?)";
+    private final String ADD_PET_DETAILS_BY_ID
+            = "INSERT INTO pet_history (`pet_idpet`, `idUserDoc`, `idUserCustomer`,`date_inn`," +
             "`conditions`,`status`) VALUES(?,?,?,?,?,?)";
-    private final String GET_PETS = "SELECT * FROM pet_history join pet on pet_idpet=idpet where idUserDoc=0";
-    private final String SET_DOC_TO_PET =
-            "UPDATE pet_history Set idUserDoc=? WHERE pet_idpet=? AND idUserDoc=0 AND status=ACTIVE"; //чекнуть - добавить id хистори
+    private final String GET_PETS_ZERO
+            = "SELECT * FROM pet_history join pet on pet_idpet=idpet where idUserDoc=0 and status=ACTIVE"; // чекнуть
+    private final String SET_DOC_TO_PET
+            = "UPDATE pet_history Set idUserDoc=? WHERE pet_idpet=? AND idUserDoc=0 AND status=ACTIVE"; //чекнуть - добавить id хистори
 
 
     public DAOWork(String url, String log, String pass)  {
         this.url = url;
-        this.log = log;
-        this.pass = pass;
+        this.login = log;
+        this.password = pass;
     }
 
     public Connection connect() {
         Connection connect = null;
         try {
-            connect = DriverManager.getConnection(url, log, pass);
+            connect = DriverManager.getConnection(url, login, password);
         } catch (SQLException e) {
             try {
                 throw new DAOConnectEx("...not connected...");
             } catch (DAOConnectEx ex) {
                 ex.printStackTrace();
             }
-
-
         }
         return connect;
     }
 
-    public UserDataDTO addNewUser(RegUserDataDTO user) {
+    public UserDataDTO addNewUser(RegUserDataDTO user) throws DaoUserExistException, DAOConnectEx {
 
         UserDataDTO userDataDTO=new UserDataDTO();
         try {
@@ -64,7 +65,6 @@ public class DAOWork {
             preparedStatement.setString(1, user.getLogin_tel());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.executeUpdate();
-
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 userDataDTO.setId(resultSet.getLong(1));
@@ -79,27 +79,18 @@ public class DAOWork {
             }
             connection.commit();
             // connection.close();
-        }             //-
+        }
 
         // ошибка.. пользователь существует
         catch (SQLIntegrityConstraintViolationException exception) {
-            try {
-                throw new DaoUserExistException(".......user is  exist");       // - нету
-            } catch (DaoUserExistException e) {
-              //  e.printStackTrace();
-            }
+        throw new DaoUserExistException(".......user is  exist");       // - нету
+
         }
         catch (SQLException e) {
             try {
                 connection.rollback();
             } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-
-            try {
-                throw new DAONotAddedUserExeption("User not added");
-            } catch (DAONotAddedUserExeption ex) {
-               // ex.printStackTrace();
+                throw new DAOConnectEx("...rollback false");
             } finally {
                 try {
                     connection.close();
@@ -118,8 +109,6 @@ public class DAOWork {
 
     public UserDataDTO enter (EnterDTO user) {
         UserDataDTO userDataDTO=new UserDataDTO();
-
-       // System.out.println(user.getLogin() + "   " + user.getPass());
 
         try {
             connection = connect();
@@ -219,7 +208,7 @@ public class DAOWork {
 
         try {
             connection = connect();
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_PETS);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_PETS_ZERO);
             preparedStatement.setLong(1, userDataDTO.getId());
             ResultSet resultSet =preparedStatement.executeQuery();
 
@@ -247,7 +236,7 @@ public class DAOWork {
 
         try {
             connection = connect();
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_PETS);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_PETS_ZERO);
             ResultSet resultSet =preparedStatement.executeQuery();
 
 

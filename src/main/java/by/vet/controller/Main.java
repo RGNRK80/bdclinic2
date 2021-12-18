@@ -1,7 +1,6 @@
 package by.vet.controller;
 
-import by.vet.dao.exception.DAOConnectEx;
-import by.vet.dao.exception.DAONotAddedUserExeption;
+
 import by.vet.dto.EnterDTO;
 import by.vet.dto.RegPetDataDTO;
 import by.vet.dto.RegUserDataDTO;
@@ -10,9 +9,6 @@ import by.vet.entity.Pet;
 import by.vet.entity.Role;
 import by.vet.entity.Status;
 import by.vet.service.impl.ServiceImpl;
-import by.vet.validator.Validator;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Main {
@@ -23,42 +19,26 @@ public class Main {
         String pass="dd286082";
 
         ServiceImpl service= null;
-        try {
-            service = new ServiceImpl(url,user,pass);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        service = new ServiceImpl(url,user,pass);
 
         //регистрация
-
         RegUserDataDTO regUserDataDTO = new RegUserDataDTO();
         regUserDataDTO.setLogin_tel("+375 00 0 000 007");
-        //System.out.println("tel " +Validator.loginVal("+375 00 0 000 007"));
         regUserDataDTO.setEmail("DJ7@pirates.com");
-      //  System.out.println("mail " +Validator.emailVal( "DJ7@pirates.com"));
         regUserDataDTO.setName("Davyd");
-      //  System.out.println("name "+Validator.nameVal( "Davyd"));
         regUserDataDTO.setSurname("Joness");
-      //  System.out.println("surname " +Validator.nameVal( "Joness"));
         regUserDataDTO.setPass("Aa3587!adf");
-      //  System.out.println("pass " +Validator.passVal( "Aa3587!adf"));
         regUserDataDTO.setRole(Role.CUSTOMER);
         regUserDataDTO.setStatus(Status.NEW);
 
-      //  service.addNewUser(regUserDataDTO);
-
-
         // вход
-
         EnterDTO enterUser= new EnterDTO();
         enterUser.setLogin("+375 00 0 000 007");
         enterUser.setPass("Aa3587!adf");
         UserDataDTO userData = new UserDataDTO();
-
         userData = service.enter(enterUser);
         System.out.println(userData);
-
-        // null если нет логина-пользователя и пароля
+        // null если нет логина-пароля - изменить на exception
 
         //добавляем пета
         RegPetDataDTO regPet = new RegPetDataDTO();
@@ -71,14 +51,18 @@ public class Main {
         regPet.setStatus(Status.NEW);
         service.addNewPet(regPet);
 
-        // массив петов по пользователю
+
+        // массив петов по пользователю c историей
         ArrayList<Pet> getPets =new ArrayList<Pet>();
         getPets=service.getPets(userData);
+
         //массив петов без доктора
         getPets=service.getZPets(userData);
+
         //акцепт доктора
         long idPet=3;
         service.getDocToPet(userData,idPet);
+
         //изменения состояния пета доктором
 
 
