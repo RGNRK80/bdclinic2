@@ -25,5 +25,9 @@ public class WebConfig implements WebMvcConfigurer {
         return new HikariDataSource(config);
     }
 
+   @Bean
+   public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+   }
 
 }
