@@ -6,11 +6,20 @@ import by.vet.dto.*;
 import by.vet.entity.Pet;
 import by.vet.entity.Role;
 import by.vet.entity.Status;
+import by.vet.entity.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
+@Repository
 @Data
+@AllArgsConstructor
 public class DAOWork {
     private Connection connection;
     private String url;
@@ -32,13 +41,28 @@ public class DAOWork {
             = "SELECT * FROM pet_history join pet on pet_idpet=idpet where idUserDoc=0 and status=ACTIVE"; // чекнуть
     private final String SET_DOC_TO_PET
             = "UPDATE pet_history Set idUserDoc=? WHERE pet_idpet=? AND idUserDoc=0 AND status=ACTIVE"; //чекнуть - добавить id хистори
+    private final String GET_USERS_QUERY =
+            "SELECT * FROM user";
+
+    private final JdbcTemplate jdbcTemplate;
 
 
     public DAOWork(String url, String log, String pass)  {
         this.url = url;
-        this.login = log;
-        this.password = pass;
+        this.login = login;
+        this.password = password;
     }
+
+ public List<User> getAllUsers(){
+     List<User> users = jdbcTemplate.query(GET_USERS_QUERY,new BeanPropertyRowMapper<>(User.class));
+     return users;
+ }
+
+
+
+
+
+
 
     public Connection connect() {
         Connection connect = null;
@@ -209,7 +233,7 @@ public class DAOWork {
         try {
             connection = connect();
             PreparedStatement preparedStatement = connection.prepareStatement(GET_PETS_ZERO);
-            preparedStatement.setLong(1, userDataDTO.getId());
+           // preparedStatement.setLong(1, userDataDTO.getId());
             ResultSet resultSet =preparedStatement.executeQuery();
 
 

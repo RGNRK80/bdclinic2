@@ -21,12 +21,12 @@ public class ServiceImpl implements ServInterface {
     String pass;
     DAOWork dw;
 
-    public ServiceImpl (String url,String log,String pass)  {
+   /* public ServiceImpl (String url,String log,String pass)  {
         this.url =url;
         this.log=log;
         this.pass=pass;
         dw=new DAOWork(url, log, pass);
-    }
+    }*/
 
     @Override
     public UserDataDTO addNewUser (RegUserDataDTO user) throws DaoUserExistException, DAOConnectEx {

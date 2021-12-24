@@ -19,7 +19,7 @@ public class Main {
         String pass="dd286082";
 
         ServiceImpl service= null;
-        service = new ServiceImpl(url,user,pass);
+       // service = new ServiceImpl(url,user,pass);
 
         //регистрация
         RegUserDataDTO regUserDataDTO = new RegUserDataDTO();
