@@ -40,6 +40,12 @@ public class ServiceImpl  {
         return users;
     }
 
+    public List<Pet> getAllPets() {
+        List<Pet> pets = dw.getAllPets();
+        return pets;
+    }
+
+
    /* public ServiceImpl (String url,String log,String pass)  {
         this.url =url;
         this.log=log;

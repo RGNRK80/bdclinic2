@@ -12,6 +12,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -29,6 +31,11 @@ public class DAOWork {
 
     private final String ADD_NEW_USER =
             "INSERT INTO user (`login_tel`, `mail`) VALUES(?,?)";
+
+    private final String GEI_USER_BY_ID =
+            "SELECT * FROM user WHERE id=?";
+
+
     private final String ENTER_USER =
             "SELECT * FROM user JOIN userinfo ON id=user_id where login_tel=? and pass=?";
     private final String ADD_USER_DETAILS_BY_ID =
@@ -42,48 +49,49 @@ public class DAOWork {
             = "SELECT * FROM pet_history join pet on pet_idpet=idpet where idUserDoc=0 and status=ACTIVE"; // чекнуть
     private final String SET_DOC_TO_PET
             = "UPDATE pet_history Set idUserDoc=? WHERE pet_idpet=? AND idUserDoc=0 AND status=ACTIVE"; //чекнуть - добавить id хистори
+
     private final String GET_USERS_QUERY =
             "SELECT * FROM user";
+    private final String GET_PETS_QUERY =
+            "SELECT * FROM pet";
+
+
+
+    private  JdbcTemplate jdbcTemplate;
+    public DAOWork() {}
 
     @Autowired
-    private  JdbcTemplate jdbcTemplate;
-
-    public DAOWork() {
+    public DAOWork(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
-    public DAOWork(String url, String login, String password){
-        this.url = url;
-        this.login = login;
-        this.password = password;
-    }
-
- public List<User> getAllUsers(){
-     List<User> users = jdbcTemplate.query(GET_USERS_QUERY,new BeanPropertyRowMapper<>(User.class));
-     return users;
+    public List<User> getAllUsers(){
+        return jdbcTemplate.query(GET_USERS_QUERY,new BeanPropertyRowMapper<>(User.class));
+ }
+ public List<Pet> getAllPets(){
+     return jdbcTemplate.query(GET_PETS_QUERY,new BeanPropertyRowMapper<>(Pet.class));
  }
 
+ public User getUserById(long id){
+        String sql=GEI_USER_BY_ID+id;
+     return (User) jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(User.class));
+ }
+
+   public User addUser(User userRegData){
+        KeyHolder keyHolder=new GeneratedKeyHolder();
+        User user = new User();
+        jdbcTemplate.update(connection->
+        {PreparedStatement ps=connection.prepareStatement(ADD_NEW_USER,new String[]{"ID"});
+            ps.setString(1, userRegData.getTel());
+            ps.setString(2, userRegData.getMail());
+            return ps;}, keyHolder);
+        Number key=keyHolder.getKey();
+       if (key == null) throw new AssertionError();
+       return getUserById(key.longValue());
+   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public Connection connect() {
+/* public Connection connect() {
         Connection connect = null;
         try {
             connect = DriverManager.getConnection(url, login, password);
@@ -95,14 +103,16 @@ public class DAOWork {
             }
         }
         return connect;
-    }
+    }*/
 
+
+/*
     public UserDataDTO addNewUser(RegUserDataDTO user) throws DaoUserExistException, DAOConnectEx {
 
         UserDataDTO userDataDTO=new UserDataDTO();
         try {
-            connection = connect();
-            connection.setAutoCommit(false);
+
+           // connection.setAutoCommit(false);
 
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_USER, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getLogin_tel());
@@ -120,7 +130,9 @@ public class DAOWork {
                 preparedStatement.setString(6, String.valueOf(Status.ACTIVE));
                 preparedStatement.executeUpdate();
             }
-            connection.commit();
+
+
+          //  connection.commit();
             // connection.close();
         }
 
@@ -148,6 +160,17 @@ public class DAOWork {
         }
         return userDataDTO;
     }
+
+*/
+
+
+
+
+
+
+   /*
+
+
 
 
     public UserDataDTO enter (EnterDTO user) {
@@ -209,7 +232,7 @@ public class DAOWork {
             connection.commit();
             // connection.close();
         }
-
+*/
      /*   catch (SQLIntegrityConstraintViolationException exception) {
             try {
                 throw new DaoUserExistException(".......pet is  exist");       // - нету
@@ -217,6 +240,10 @@ public class DAOWork {
                 e.printStackTrace();
             }
         }*/
+
+
+
+    /*
         catch (SQLException e) {
 
             try {
@@ -244,6 +271,13 @@ public class DAOWork {
         return petDataDTO;
     }
 
+
+
+
+
+
+
+
     public ArrayList<Pet> getPets(UserDataDTO userDataDTO){
         ArrayList<Pet> ar= new ArrayList<>();
         Pet pet=new Pet();
@@ -257,7 +291,7 @@ public class DAOWork {
 
 
             if (resultSet.next()) {
-                pet.setId(resultSet.getLong(1));
+                pet.setIdpet(resultSet.getLong(1));
                 pet.setName(resultSet.getString(1));
                 pet.setType(resultSet.getString(1));
                 pet.setSex(resultSet.getString(1));
@@ -284,7 +318,7 @@ public class DAOWork {
 
 
             while (resultSet.next()) {
-                pet.setId(resultSet.getLong(1));
+                pet.setIdpet(resultSet.getLong(1));
                 pet.setName(resultSet.getString(8));
                 pet.setType(resultSet.getString(9));
                 pet.setSex(resultSet.getString(10));
@@ -331,7 +365,7 @@ public class DAOWork {
 
     }
 
-
+*/
 
 
 }
