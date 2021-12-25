@@ -12,11 +12,12 @@ import java.util.List;
 
 @RestController
 @Data
-@RequestMapping
+@RequestMapping("/api/users")
+
 public class UserController {
-    private final ServiceImpl service;
+    private final ServiceImpl serviceImp;
     @GetMapping
-    public List<User> readAll() {return service.getAllUsers();}
+    public List<User> readAll() {return serviceImp.getAllUsers();}
 
     @GetMapping("/hello")
     public String read() {return "hello";}

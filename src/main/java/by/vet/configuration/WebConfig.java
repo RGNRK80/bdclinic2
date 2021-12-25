@@ -1,5 +1,5 @@
-package by.vet.configuration;
 
+package by.vet.configuration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
@@ -19,8 +19,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     public DataSource dataSource(){
-         HikariConfig config=new HikariConfig("/dbproperties");
-     //  System.out.println(config.getMinimumIdle());
+         HikariConfig config=new HikariConfig("db.properties");
+         System.out.println(config.getMinimumIdle());
          return new HikariDataSource(config);
     }
 

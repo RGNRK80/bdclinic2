@@ -13,12 +13,12 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args)  {
-
+/*
         String url ="jdbc:mysql://localhost:3306/vetclinic";
         String user="root";
         String pass="dd286082";
 
-        ServiceImpl service= null;
+        ServiceImpl service= null;*/
        // service = new ServiceImpl(url,user,pass);
 
         //регистрация
