@@ -77,11 +77,12 @@ public class DAOWork {
      return (User) jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(User.class));
  }
 
-   public User addUser(User userRegData){
+   public User addUser(User userRegData) throws SQLException {
+       System.out.println(" reg  " + userRegData);
         KeyHolder keyHolder=new GeneratedKeyHolder();
-        User user = new User();
         jdbcTemplate.update(connection->
-        {PreparedStatement ps=connection.prepareStatement(ADD_NEW_USER,new String[]{"ID"});
+        {
+            PreparedStatement ps=connection.prepareStatement(ADD_NEW_USER,new String[]{"ID"});
             ps.setString(1, userRegData.getTel());
             ps.setString(2, userRegData.getMail());
             return ps;}, keyHolder);

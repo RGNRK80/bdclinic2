@@ -45,13 +45,15 @@ public class ServiceImpl  {
         return pets;
     }
 
+    public User getUserById(long id){
+        return dw.getUserById(id);
+    }
 
-   /* public ServiceImpl (String url,String log,String pass)  {
-        this.url =url;
-        this.log=log;
-        this.pass=pass;
-        dw=new DAOWork(url, log, pass);
-    }*/
+
+    public User addUser(User user) throws SQLException {
+        System.out.println("serv"  + user);
+        return dw.addUser(user);}
+
 
 
 
