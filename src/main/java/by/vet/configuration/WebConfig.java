@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     public DataSource dataSource(){
-         HikariConfig config=new HikariConfig("/resources/dbproperties");
+         HikariConfig config=new HikariConfig("/dbproperties");
      //  System.out.println(config.getMinimumIdle());
          return new HikariDataSource(config);
     }

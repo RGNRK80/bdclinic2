@@ -8,18 +8,37 @@ import by.vet.dto.*;
 import by.vet.entity.Pet;
 import by.vet.entity.Role;
 import by.vet.entity.Status;
+import by.vet.entity.User;
 import by.vet.service.ServInterface;
 import by.vet.validator.Validator;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.stereotype.Service;
 
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class ServiceImpl implements ServInterface {
-    String url;
+@Service
+public class ServiceImpl  {
+  /*  String url;
     String log;
     String pass;
-    DAOWork dw;
+    DAOWork dw;*/
+
+    private final DAOWork dw;
+
+    public ServiceImpl(DAOWork dw) {
+        this.dw = dw;
+    }
+
+
+    public List<User> getAllUsers() {
+        List<User> users = dw.getAllUsers();
+        return users;
+    }
 
    /* public ServiceImpl (String url,String log,String pass)  {
         this.url =url;
@@ -28,6 +47,9 @@ public class ServiceImpl implements ServInterface {
         dw=new DAOWork(url, log, pass);
     }*/
 
+
+
+        /*
     @Override
     public UserDataDTO addNewUser (RegUserDataDTO user) throws DaoUserExistException, DAOConnectEx {
         UserDataDTO userDataDTO=null;
@@ -35,6 +57,10 @@ public class ServiceImpl implements ServInterface {
         if (Validator.validateRegData(user)) {userDataDTO=dw.addNewUser(user);}
        return userDataDTO;
     }
+
+         */
+
+        /*
     @Override
     public UserDataDTO enter (EnterDTO user) {
         UserDataDTO userDataDTO=null;
@@ -45,7 +71,11 @@ public class ServiceImpl implements ServInterface {
         if (userDataDTO.getStatus()== Status.CLOSED) {userDataDTO=null;}
          return userDataDTO;
     }
-    @Override
+
+         */
+
+
+   /* @Override
     public PetDataDTO addNewPet(RegPetDataDTO regpet) {
         PetDataDTO petDataDTO=null;
         if (Validator.nameVal(regpet.getName()) && Validator.nameVal(regpet.getType())) {
@@ -60,7 +90,10 @@ public class ServiceImpl implements ServInterface {
         return ar;
 
     }
-    @Override
+
+    */
+
+   /* @Override
     public ArrayList<Pet> getZPets(UserDataDTO userDataDTO){
         ArrayList<Pet> ar= new ArrayList<>();
         ar=null;
@@ -76,6 +109,8 @@ public class ServiceImpl implements ServInterface {
             pet=dw.getDocToPet(userDataDTO.getId(), idpet);}
         return pet;
     }
+
+    */
 
 
 }

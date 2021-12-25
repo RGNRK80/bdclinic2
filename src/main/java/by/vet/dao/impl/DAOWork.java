@@ -9,6 +9,7 @@ import by.vet.entity.Status;
 import by.vet.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -44,10 +45,13 @@ public class DAOWork {
     private final String GET_USERS_QUERY =
             "SELECT * FROM user";
 
-    private final JdbcTemplate jdbcTemplate;
+    @Autowired
+    private  JdbcTemplate jdbcTemplate;
 
+    public DAOWork() {
+    }
 
-    public DAOWork(String url, String log, String pass)  {
+    public DAOWork(String url, String login, String password){
         this.url = url;
         this.login = login;
         this.password = password;
@@ -57,6 +61,21 @@ public class DAOWork {
      List<User> users = jdbcTemplate.query(GET_USERS_QUERY,new BeanPropertyRowMapper<>(User.class));
      return users;
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

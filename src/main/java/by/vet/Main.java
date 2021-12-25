@@ -1,4 +1,4 @@
-package by.vet.controller;
+package by.vet;
 
 
 import by.vet.dto.EnterDTO;
@@ -32,7 +32,7 @@ public class Main {
         regUserDataDTO.setStatus(Status.NEW);
 
         // вход
-        EnterDTO enterUser= new EnterDTO();
+/*        EnterDTO enterUser= new EnterDTO();
         enterUser.setLogin("+375 00 0 000 007");
         enterUser.setPass("Aa3587!adf");
         UserDataDTO userData = new UserDataDTO();
@@ -68,7 +68,7 @@ public class Main {
 
 
 
-
+*/
 
 
 
