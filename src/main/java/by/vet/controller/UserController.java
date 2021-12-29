@@ -24,26 +24,27 @@ public class UserController {
     private final ServiceImpl serviceImp;
 
    @GetMapping("/users")
-   public List<User> readAllUsers() {return serviceImp.getAllUsers();}
+   public List<User> getAllUsers() {return serviceImp.getAllUsers();}
    @GetMapping("/pets")
-   public List<Pet> readAllPets() {return serviceImp.getAllPets();}
+   public List<Pet> getAllPets() {return serviceImp.getAllPets();}
    @GetMapping("/hello")
-   public String read() {return "hello";}
+   public String sayHello() {return "hello";}
 
-    //новый user
-  /*  @GetMapping("/user")
+   //новый user
+    @GetMapping("/user")
         @Autowired
         public User addUser (User user) throws SQLException {
         user.setTel("3755000000004");
         user.setMail("JS4@gmail.com");
         System.out.println("to serv" + user);
         return serviceImp.addUser(user);
-    }  */
+    }
 
-    @GetMapping("/{id}")   // что оно делает? и как этим пользоваться?
+    @GetMapping("/{id}")   //  как этим пользоваться?
     public String readId(@PathVariable long id){
        return String.valueOf(id);
     }
+
 
 
 //    @GetMapping("/user")
