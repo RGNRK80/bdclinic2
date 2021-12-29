@@ -32,7 +32,7 @@ public class UserController {
 
    //новый user
     @GetMapping("/user")
-       // @Autowired
+        @Autowired
         public User addUser (User user) throws SQLException {
         user.setTel("3755000000004");
         user.setMail("JS4@gmail.com");
@@ -40,10 +40,11 @@ public class UserController {
         return serviceImp.addUser(user);
     }
 
-    @GetMapping("/{id}")   // что оно делает? и как этим пользоваться?
+    @GetMapping("/{id}")   //  как этим пользоваться?
     public String readId(@PathVariable long id){
        return String.valueOf(id);
     }
+
 
 
 //    @GetMapping("/user")
