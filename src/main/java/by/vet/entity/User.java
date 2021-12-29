@@ -13,18 +13,15 @@ public class User {
     public String getTel() {
         return tel;
     }
-
     public void setTel(String tel) {
         this.tel = tel;
     }
-
     public String getMail() {
         return mail;
     }
-
     public void setMail(String mail) {
         this.mail = mail;
     }
 
-    //  private  Userinfo userinfo;
+
 }
