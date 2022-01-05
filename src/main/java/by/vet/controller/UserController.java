@@ -39,8 +39,8 @@ public class UserController {
     @GetMapping("/adduser")
         @Autowired
         public User addUser (User user) throws SQLException {
-        user.setTel("3755000000007");
-        user.setMail("JS7@gmail.com");
+        user.setTel("3755000000008");
+        user.setMail("JS8@gmail.com");
         System.out.println("to serv" + user);
         return serviceImp.addUser(user);
     }
@@ -48,7 +48,7 @@ public class UserController {
     @GetMapping("/addpet")
     @Autowired
     public Pet addPet (Pet pet) throws SQLException {
-        pet.setName("Frank");
+        pet.setName("FrankDUval");
         pet.setType("Parrot");
         pet.setSex("M");
         System.out.println("to serv" + pet);
