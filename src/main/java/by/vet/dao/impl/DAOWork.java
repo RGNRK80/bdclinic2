@@ -1,4 +1,5 @@
 package by.vet.dao.impl;
+
 import by.vet.entity.Pet;
 import by.vet.entity.User;
 import lombok.AllArgsConstructor;
@@ -36,7 +37,7 @@ public class DAOWork {
     private final String ADD_USER_DETAILS_BY_ID =
             "INSERT INTO userinfo (`user_id`, `name`, `surname`,`pass`,`role`,`status`) VALUES(?,?,?,?,?,?)";
     private final String ADD_PET
-            ="INSERT INTO pet (`name`, `type`, `sex`) VALUES(?,?,?)";
+            = "INSERT INTO pet (`name`, `type`, `sex`) VALUES(?,?,?)";
     private final String ADD_PET_DETAILS_BY_ID
             = "INSERT INTO pet_history (`pet_idpet`, `idUserDoc`, `idUserCustomer`,`date_inn`," +
             "`conditions`,`status`) VALUES(?,?,?,?,?,?)";
@@ -51,59 +52,64 @@ public class DAOWork {
             "SELECT * FROM pet";
 
 
+    private JdbcTemplate jdbcTemplate;
 
-    private  JdbcTemplate jdbcTemplate;
-    public DAOWork() {}
+    public DAOWork() {
+    }
 
     @Autowired
     public DAOWork(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<User> getAllUsers(){
-        return jdbcTemplate.query(GET_USERS_QUERY,new BeanPropertyRowMapper<>(User.class));
- }
- public List<Pet> getAllPets(){
-     return jdbcTemplate.query(GET_PETS_QUERY,new BeanPropertyRowMapper<>(Pet.class));
- }
+    public List<User> getAllUsers() {
+        return jdbcTemplate.query(GET_USERS_QUERY, new BeanPropertyRowMapper<>(User.class));
+    }
+
+    public List<Pet> getAllPets() {
+        return jdbcTemplate.query(GET_PETS_QUERY, new BeanPropertyRowMapper<>(Pet.class));
+    }
 
 
- public User getUserById(long id){
-        String sql=GEI_USER_BY_ID+id;
-     return (User) jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(User.class));
- }
+    public User getUserById(long id) {
+        String sql = GEI_USER_BY_ID + id;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class)).stream().findAny().orElse(new User());
+    }
 
-   public User addUser(User userRegData) throws SQLException {
-       System.out.println(" reg  " + userRegData);
-        KeyHolder keyHolder=new GeneratedKeyHolder();
-        jdbcTemplate.update(connection->
+    public User addUser(User userRegData) throws SQLException {
+        System.out.println(" reg  " + userRegData);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection ->
         {
-            PreparedStatement ps=connection.prepareStatement(ADD_NEW_USER,new String[]{"ID"});
-            ps.setString(1, userRegData.getTel());
+            PreparedStatement ps = connection.prepareStatement(ADD_NEW_USER, new String[]{"ID"});
+            ps.setString(1, userRegData.getLogin_tel());
             ps.setString(2, userRegData.getMail());
-            return ps;}, keyHolder);
-        Number key=keyHolder.getKey();
-       if (key == null) throw new AssertionError();
-       return getUserById(key.longValue());
-   }
+            return ps;
+        }, keyHolder);
+        Number key = keyHolder.getKey();
+        if (key == null) throw new AssertionError();
+        return getUserById(key.longValue());
+    }
+
     public Pet addPet(Pet petRegData) throws SQLException {
         System.out.println(" reg  " + petRegData);
-        KeyHolder keyHolder=new GeneratedKeyHolder();
-        jdbcTemplate.update(connection->
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection ->
         {
-            PreparedStatement ps=connection.prepareStatement(ADD_PET,new String[]{"IDPET"});
+            PreparedStatement ps = connection.prepareStatement(ADD_PET, new String[]{"IDPET"});
             ps.setString(1, petRegData.getName());
             ps.setString(2, petRegData.getType());
             ps.setString(3, petRegData.getSex());
-            return ps;}, keyHolder);
-        Number key=keyHolder.getKey();
+            return ps;
+        }, keyHolder);
+        Number key = keyHolder.getKey();
         if (key == null) throw new AssertionError();
         return getPetById(key.longValue());
     }
 
-    public Pet getPetById(long id){
-        String sql=GEI_PET_BY_ID+id;
-        return (Pet) jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Pet.class));
+    public Pet getPetById(long id) {
+        String sql = GEI_PET_BY_ID + id;
+        return (Pet) jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Pet.class));
     }
 
 
