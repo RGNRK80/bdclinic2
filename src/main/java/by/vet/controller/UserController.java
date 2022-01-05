@@ -4,7 +4,6 @@ package by.vet.controller;
 import by.vet.entity.Pet;
 import by.vet.entity.User;
 import by.vet.service.impl.ServiceImpl;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,29 +14,49 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-@Data
-@RequestMapping("/api/rezult")
+///@Data
+@RequestMapping("/")
 
 public class UserController {
 
     long idUser;
     private final ServiceImpl serviceImp;
 
-   @GetMapping("/users")
+    public UserController(ServiceImpl serviceImp) {
+        this.serviceImp = serviceImp;
+    }
+
+    @GetMapping("/users")
    public List<User> getAllUsers() {return serviceImp.getAllUsers();}
-   @GetMapping("/pets")
+
+    @GetMapping("/pets")
    public List<Pet> getAllPets() {return serviceImp.getAllPets();}
-   @GetMapping("/hello")
-   public String sayHello() {return "hello";}
+
+
+
+    @GetMapping("/hello")
+    public String sayHello() {return "hello";}
+
+
 
    //новый user
-    @GetMapping("/user")
+    @GetMapping("/adduser")
         @Autowired
         public User addUser (User user) throws SQLException {
-        user.setTel("3755000000004");
-        user.setMail("JS4@gmail.com");
+        user.setTel("3755000000007");
+        user.setMail("JS7@gmail.com");
         System.out.println("to serv" + user);
         return serviceImp.addUser(user);
+    }
+
+    @GetMapping("/addpet")
+    @Autowired
+    public Pet addPet (Pet pet) throws SQLException {
+        pet.setName("Frank");
+        pet.setType("Parrot");
+        pet.setSex("M");
+        System.out.println("to serv" + pet);
+        return serviceImp.addPet(pet);
     }
 
     @GetMapping("/{id}")   //  как этим пользоваться?
@@ -45,15 +64,8 @@ public class UserController {
        return String.valueOf(id);
     }
 
-
-
 //    @GetMapping("/user")
 //  public User getUserById() {return serviceImp.g}
-
-
-
-
-
 
 
 

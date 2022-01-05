@@ -54,7 +54,9 @@ public class ServiceImpl  {
         System.out.println("serv"  + user);
         return dw.addUser(user);}
 
-
+    public Pet addPet(Pet pet) throws SQLException {
+        System.out.println("serv: "  + pet);
+        return dw.addPet(pet);}
 
 
         /*

@@ -1,11 +1,5 @@
 package by.vet.dao.impl;
-import by.vet.dao.exception.DAOConnectEx;
-import by.vet.dao.exception.DAONotAddedUserExeption;
-import by.vet.dao.exception.DaoUserExistException;
-import by.vet.dto.*;
 import by.vet.entity.Pet;
-import by.vet.entity.Role;
-import by.vet.entity.Status;
 import by.vet.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +11,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -31,16 +24,16 @@ public class DAOWork {
 
     private final String ADD_NEW_USER =
             "INSERT INTO user (`login_tel`, `mail`) VALUES(?,?)";
-
     private final String GEI_USER_BY_ID =
-            "SELECT * FROM user WHERE id=?";
-
+            "SELECT * FROM user WHERE id=";
+    private final String GEI_PET_BY_ID =
+            "SELECT * FROM pet WHERE id=";
 
     private final String ENTER_USER =
             "SELECT * FROM user JOIN userinfo ON id=user_id where login_tel=? and pass=?";
     private final String ADD_USER_DETAILS_BY_ID =
             "INSERT INTO userinfo (`user_id`, `name`, `surname`,`pass`,`role`,`status`) VALUES(?,?,?,?,?,?)";
-    private final String ADD_NEW_PET
+    private final String ADD_PET
             ="INSERT INTO pet (`name`, `type`, `sex`) VALUES(?,?,?)";
     private final String ADD_PET_DETAILS_BY_ID
             = "INSERT INTO pet_history (`pet_idpet`, `idUserDoc`, `idUserCustomer`,`date_inn`," +
@@ -90,6 +83,26 @@ public class DAOWork {
        if (key == null) throw new AssertionError();
        return getUserById(key.longValue());
    }
+    public Pet addPet(Pet petRegData) throws SQLException {
+        System.out.println(" reg  " + petRegData);
+        KeyHolder keyHolder=new GeneratedKeyHolder();
+        jdbcTemplate.update(connection->
+        {
+            PreparedStatement ps=connection.prepareStatement(ADD_PET,new String[]{"IDPET"});
+            ps.setString(1, petRegData.getName());
+            ps.setString(2, petRegData.getType());
+            ps.setString(3, petRegData.getSex());
+            return ps;}, keyHolder);
+        Number key=keyHolder.getKey();
+        if (key == null) throw new AssertionError();
+        return getPetById(key.longValue());
+    }
+
+    public Pet getPetById(long id){
+        String sql=GEI_PET_BY_ID+id;
+        return (Pet) jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Pet.class));
+    }
+
 
 
 /* public Connection connect() {
