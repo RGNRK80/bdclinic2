@@ -60,8 +60,9 @@ public class UserController {
     }
 
     @GetMapping("/{id}")   //  как этим пользоваться?
-    public String readId(@PathVariable long id){
-       return String.valueOf(id);
+        public String readId(@PathVariable long id){
+        return serviceImp.getUserById(id).toString();
+        //return String.valueOf(id);
     }
 
 //    @GetMapping("/user")

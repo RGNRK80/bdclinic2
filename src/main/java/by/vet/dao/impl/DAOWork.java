@@ -4,10 +4,12 @@ import by.vet.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -64,6 +66,7 @@ public class DAOWork {
  public List<Pet> getAllPets(){
      return jdbcTemplate.query(GET_PETS_QUERY,new BeanPropertyRowMapper<>(Pet.class));
  }
+
 
  public User getUserById(long id){
         String sql=GEI_USER_BY_ID+id;
