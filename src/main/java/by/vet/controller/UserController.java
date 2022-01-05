@@ -32,12 +32,8 @@ public class UserController {
     @GetMapping("/pets")
    public List<Pet> getAllPets() {return serviceImp.getAllPets();}
 
-
-
     @GetMapping("/hello")
     public String sayHello() {return "hello";}
-
-
 
    //новый user
     @GetMapping("/adduser")
@@ -64,9 +60,6 @@ public class UserController {
         return serviceImp.getUserById(id).toString();
         //return String.valueOf(id);
     }
-
-//    @GetMapping("/user")
-//  public User getUserById() {return serviceImp.g}
 
 
 

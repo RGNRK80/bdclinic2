@@ -29,11 +29,9 @@ public class ServiceImpl  {
     DAOWork dw;*/
 
     private final DAOWork dw;
-
     public ServiceImpl(DAOWork dw) {
         this.dw = dw;
     }
-
 
     public List<User> getAllUsers() {
         List<User> users = dw.getAllUsers();
@@ -48,7 +46,6 @@ public class ServiceImpl  {
     public User getUserById(long id){
         return dw.getUserById(id);
     }
-
 
     public User addUser(User user) throws SQLException {
         System.out.println("serv"  + user);
